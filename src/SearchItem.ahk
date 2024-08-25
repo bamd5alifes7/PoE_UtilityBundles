@@ -1,4 +1,4 @@
-GetItemName(){
+﻿GetItemName(){
     Key := 
     if GetbyClipboard(){
         Key := ItemAnalysis()
