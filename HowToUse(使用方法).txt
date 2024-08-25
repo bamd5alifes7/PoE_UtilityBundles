@@ -4,14 +4,14 @@ HowToUse (使用方法)
 2.After clicking "OK" or "Confirm" on the introduction screen, you can start using it immediately without closing the GUI screen.
 
 P.S. If this is your first time using the program and Windows Defender SmartScreen does not recognize it, click "More info" and then select "Run anyway" to proceed. 
-P.P.S. Alternatively, you can go to the SourceCode folder, review the code to ensure it is safe, and then either execute the source code or run the program.
+P.P.S. Alternatively, you can go to the src folder, review the code to ensure it is safe, and then either execute the source code or run the program.
 
 
 1.雙擊POE_Utilitybundles程式。
 2.在簡介畫面按下確定或OK後，就已經開始使用，無須關閉Gui畫面。
 
 P.S.如果你是第一次使用，而Windows Defender SmartScreen無法辨識，請點選「其他資訊」後，「仍要執行」來運行此程式。
-P.P.S.或者請進SourceCode資料夾中，將代碼讀到你安心以後，再執行源代碼或執行此程式。
+P.P.S.或者請進src資料夾中，將代碼讀到你安心以後，再執行源代碼或執行此程式。
 
 
 
