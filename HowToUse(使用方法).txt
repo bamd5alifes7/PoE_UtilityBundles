@@ -1,13 +1,13 @@
 HowToUse (使用方法)
 
-1.Double-click the POE_Utilitybundles program.
+1.Double-click the POE_UtilityBundles program.
 2.After clicking "OK" or "Confirm" on the introduction screen, you can start using it immediately without closing the GUI screen.
 
 P.S. If this is your first time using the program and Windows Defender SmartScreen does not recognize it, click "More info" and then select "Run anyway" to proceed. 
 P.P.S. Alternatively, you can go to the src folder, review the code to ensure it is safe, and then either execute the source code or run the program.
 
 
-1.雙擊POE_Utilitybundles程式。
+1.雙擊POE_UtilityBundles程式。
 2.在簡介畫面按下確定或OK後，就已經開始使用，無須關閉Gui畫面。
 
 P.S.如果你是第一次使用，而Windows Defender SmartScreen無法辨識，請點選「其他資訊」後，「仍要執行」來運行此程式。
@@ -17,8 +17,8 @@ P.P.S.或者請進src資料夾中，將代碼讀到你安心以後，再執行�
 
 HowToClose(如何關閉)
 
-1.In the GUI interface, click the X symbol in the upper right corner to close POE_Utilitybundles.
-2.Alternatively, you can find the POE_Utilitybundles AHK icon in the system tray and close it manually.
+1.In the GUI interface, click the X symbol in the upper right corner to close POE_UtilityBundles.
+2.Alternatively, you can find the POE_UtilityBundles AHK icon in the system tray and close it manually.
 
-1.在Gui介面中，點選右上角的X符號。就關閉了POE_Utilitybundles。
-2.或可在右下狀態列中找到POE_Utilitybundles的AHK圖樣，手動關閉。
+1.在Gui介面中，點選右上角的X符號。就關閉了POE_UtilityBundles。
+2.或可在右下狀態列中找到POE_UtilityBundles的AHK圖樣，手動關閉。
