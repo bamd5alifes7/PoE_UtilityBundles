@@ -55,7 +55,7 @@ P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨
 
 或者以原始碼方式執行：
 
-1. 下載並安裝[AutoHotKey](https://www.autohotkey.com/)。如果會閃退或沒反應，試試看版本號 `AutoHotkey_1.1.34.02`
+1. 下載並安裝[AutoHotKey](https://www.autohotkey.com/)。如果會閃退或沒反應，試試看改用我編寫時的版本號 `AutoHotkey_1.1.34.02`。
 
 2. 下載。
    
