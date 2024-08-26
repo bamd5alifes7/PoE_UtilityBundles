@@ -1,9 +1,7 @@
 
 [English guide](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/README-EN.md)
 
-首先，感謝原作者。[heyfey的原作POE_Utility](https://github.com/heyfey/POE_Utility/)
-
-POE_UtilityBundles是基於此之上的分支。
+首先，感謝原作者。[heyfey的原作POE_Utility](https://github.com/heyfey/POE_Utility/)，POE_UtilityBundles是基於此之上的分支。
 
 
 **POE_UtilityBundles**
