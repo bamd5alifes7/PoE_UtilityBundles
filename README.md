@@ -44,7 +44,7 @@ POE_UtilityBundles是基於此之上的分支。
 
 1. 下載。
    
-   (1)點選此頁面上方的'Clone`按鈕再點選'Download ZIP'。.
+   (1)點選此頁面上方的'Clone`按鈕再點選'Download ZIP'。
    
    (2)點選此頁面右中Releases下的超連結。再點選POE_UtilityBundles.exe或Source code(zip)。
 
@@ -58,7 +58,9 @@ P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨
 1. 下載並安裝[AutoHotKey](https://www.autohotkey.com/)。如果會閃退或沒反應，試試看版本號 `AutoHotkey_1.1.34.02`
 
 2. 下載。
+   
    (1)點選此頁面上方的'Clone`按鈕再點選'Download ZIP'。
+   
    (2)點選此頁面右中Releases下的超連結。再點選Source code(zip)。
 
 ~~3. 用Notepad++之類的開發工具打開源代碼，讀到爽。~~
