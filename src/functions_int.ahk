@@ -85,9 +85,10 @@ QuickFlask(list){
 }
 
 AutoTimeFlask(flasklist, attacklist, keepattacklist, AutoInterval){
+
 	
-	;把設置的毫秒設定計算為Sleep需要的圈數
-	Interval =% AutoInterval/100
+	;把設置的毫秒設定計算為Sleep需要的圈數,預設為4000豪秒，除以200之後20圈。40圈時4502 400圈6372毫秒。實際上動作一樣但圈數越多，實際上運作時間越久。
+	Interval =% Ceil(AutoInterval/200)
 	;MsgBox,%Interval%
 	
 	;分別將keepattacklist中的元素按住按鈕
@@ -99,7 +100,7 @@ AutoTimeFlask(flasklist, attacklist, keepattacklist, AutoInterval){
 		
 	;一個持續的循環，自動施放
     Loop
-    {
+		{
 		;分別將flasklist,attacklist按下單次按紐
 		Loop, parse, flasklist, -
 			{
@@ -109,28 +110,32 @@ AutoTimeFlask(flasklist, attacklist, keepattacklist, AutoInterval){
 			
 		Loop, parse, attacklist, -
 			{
+				;確定技能有先鬆開
+				;Send {%A_LoopField% up}	
 				Send {%A_LoopField%}
+				
 				Sleep 40
 			}		
 	
-		;施放各項技能的間格時間。預設為4秒，每0.1秒檢查是否有按下F12，若有將keepattacklist的案件鬆開，並退出循環
+		;施放各項技能的間格時間。預設為4000豪秒，基於效能問題拆成每20毫秒的200圈。並每20毫秒檢查是否有按下F12，若有將keepattacklist的案件鬆開，並退出循環。
+		;
 		Loop,%Interval%
-		{
-		Sleep 100
-		
-		if GetKeyState("F12") 
 			{
-			Loop, parse, keepattacklist, -
+			Sleep 200
+			
+			if GetKeyState("F12") 
 				{
-					Send {%A_LoopField% up}
-					Sleep 40
-				}		
-			Send {%A_LoopField% Up}
-			return    
+				Loop, parse, keepattacklist, -
+					{
+						Send {%A_LoopField% up}
+						Sleep 40
+					}		
+				return    
+				}
+			
 			}
-		}
 		
-    }
+		}
     return
 }
 
@@ -743,24 +748,26 @@ BlockInput Off
 Autoattack(AutoTimeattacklist)
 {
 
-	SendInput, {RButton down}
+	SendInput {RButton down}
 	
-	loop, parse, AutoTimeattacklist, -
-	{
-    SendInput, {%A_LoopField% down}
-	Sleep, 300	
-	SendInput, {%A_LoopField% Up}
-    
-	if GetKeyState("F12", "P") 
+	loop
 		{
-		SendInput, {RButton up}
-		SendInput, {%A_LoopField% Up}
-			break 
-		}
-	
-	Sleep, 1000
+		loop, parse, AutoTimeattacklist, -
+			{
+			
+			if GetKeyState("F12", "P"){
+				SendInput {RButton up}
+				SendInput {%A_LoopField% Up}
+				return 
+				}
+			
+			SendInput {%A_LoopField% down}
+			Sleep, 300	
+			SendInput {%A_LoopField% Up}
+			
+			Sleep, 1000
 
-    }
-	
+			}
+		}
 }
 
