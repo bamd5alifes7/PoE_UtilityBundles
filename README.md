@@ -2,6 +2,7 @@
 [English guide](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/README-EN.md)
 
 首先，感謝原作者。[heyfey的原作POE_Utility](https://github.com/heyfey/POE_Utility/)
+
 POE_UtilityBundles是基於此之上的分支。
 
 
@@ -54,7 +55,7 @@ POE_UtilityBundles是基於此之上的分支。
    (1)點選此頁面上方的'Clone`按鈕再點選'Download ZIP'。
    (2)點選此頁面右中Releases下的超連結。再點選Source code(zip)。
 
-3. ~~用Notepad++之類的開發工具打開源代碼，讀到爽~~。
+~~3. 用Notepad++之類的開發工具打開源代碼，讀到爽。~~
    
 4. 右鍵點選 `POE_UtilityBundles.ahk`並以系統管理員身分執行，
 
