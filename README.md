@@ -46,7 +46,9 @@ POE_UtilityBundles是基於此之上的分支。
    (1)點選此頁面上方的'Clone`按鈕再點選'Download ZIP'。
    (2)點選此頁面右中Releases下的超連結。再點選POE_UtilityBundles.exe或Source code(zip)。
 
-2. 右鍵點選`POE_UtilityBundles.exe`並以系統管理員身分執行，閱讀或跳過簡介後就可開始使用。
+2. 右鍵點選`POE_UtilityBundles.exe`並以系統管理員身分執行，閱讀或跳過簡介後就可開始使用，無須關閉Gui畫面。
+
+P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨識的通知，請點選「其他資訊」後，「仍要執行」來運行此程式。
 
 
 或者以原始碼方式執行：
@@ -62,6 +64,12 @@ POE_UtilityBundles是基於此之上的分支。
 4. 右鍵點選 `POE_UtilityBundles.ahk`並以系統管理員身分執行，
 
 
+## 如何關閉
+
+
+1.在Gui介面中，點選右上角的X符號。就關閉了POE_UtilityBundles。
+
+2.或可在右下狀態列中找到POE_UtilityBundles的綠底白字的H字圖樣，手動關閉。
 
 ## 介面 
 ![image](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/demo/%E4%BB%8B%E9%9D%A2.png)
