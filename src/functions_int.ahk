@@ -406,7 +406,7 @@ tradePosY := []
 	TempX =% tradeFirstX+((tradeLastX-tradeFirstX)/12)*Floor((A_index-1)/5)+(tradeLastX-tradeFirstX)/12/2
 	tradePosX.Push(TempX)
 	TempY =% tradeFirstY+(tradeLastY-tradeFirstY)/5*Mod(A_index-1,5)+(tradeLastY-tradeFirstY)/5/2
-	tradePosX.Push(TempY)
+	tradePosY.Push(TempY)
 	}
 
     for k, v in tradePosX
