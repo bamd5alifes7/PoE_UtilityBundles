@@ -48,7 +48,7 @@
    
    (2)點選此頁面右中Releases下的超連結。再點選POE_UtilityBundles.exe或Source code(zip)。
 
-3. 右鍵點選`POE_UtilityBundles.exe`並以系統管理員身分執行，閱讀或跳過簡介後就可開始使用，無須關閉Gui畫面。
+2. 左鍵雙擊`POE_UtilityBundles.exe`，閱讀或跳過簡介後就可開始使用，無須關閉Gui畫面。
 
 P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨識的通知，請點選「其他資訊」後，「仍要執行」來運行此程式。
 
@@ -63,9 +63,9 @@ P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨
    
    (2)點選此頁面右中Releases下的超連結。再點選Source code(zip)。
 
-~~3. 用Notepad++之類的開發工具打開源代碼，讀到爽。~~
+ ~~3. 用Notepad++之類的開發工具打開源代碼，讀到你覺得安心。(恐懼是來自於未知)~~
    
-4. 右鍵點選 `POE_UtilityBundles.ahk`並以系統管理員身分執行，
+4. 左鍵雙擊 `POE_UtilityBundles.ahk`，閱讀或跳過簡介後就可開始使用，無須關閉Gui畫面。
 
 
 ## 如何關閉
