@@ -63,7 +63,7 @@ P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨
    
    (2)點選此頁面右中Releases下的超連結。再點選Source code(zip)。
 
-[Tab]~~3. 用Notepad++之類的開發工具打開源代碼，讀到你覺得安心。(恐懼是來自於未知)~~
+[Tab] ~~3. 用Notepad++之類的開發工具打開源代碼，讀到你覺得安心。(恐懼是來自於未知)~~
    
 4. 左鍵雙擊 `POE_UtilityBundles.ahk`，閱讀或跳過簡介後就可開始使用，無須關閉Gui畫面。
 
