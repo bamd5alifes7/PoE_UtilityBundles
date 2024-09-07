@@ -152,24 +152,27 @@ QuickEnter(channel){
 	;先把現在剪貼簿的東西暫存起來
     temp := Clipboard
 	
+	;清空剪貼簿
+	clipboard := "" 
 	Clipboard := channel
+	;等待剪貼簿出現內容。
+	ClipWait
 	;舊寫法
 	;Clipboard = %channel%
-	
-	;等待剪貼簿出現內容。可能不太有意義。
-	ClipWait
-
     
 	Send {Enter}
     Send ^v
     Send {Enter}
 
-    ;把先前暫存的剪貼簿內容復原
-	Clipboard := temp
-    ;等待剪貼簿出現內容。可能不太有意義。
+	;清空剪貼簿
+	clipboard := "" 
+    ;把先前暫存的剪貼簿內容復原，如果進入藏身處的指令沒復原。先檢查一下Awakened PoE Trade的設定。
+	Clipboard = % temp
+    ;等待剪貼簿出現內容。
 	ClipWait
 	
 	BlockInput Off
+	
     return
 }
 
