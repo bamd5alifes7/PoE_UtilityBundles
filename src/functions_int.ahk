@@ -168,8 +168,9 @@ QuickEnter(channel){
 	clipboard := "" 
     ;把先前暫存的剪貼簿內容復原，如果進入藏身處的指令沒復原。先檢查一下Awakened PoE Trade的設定。
 	Clipboard = % temp
-    ;等待剪貼簿出現內容。
-	ClipWait
+    ;如果temp不是空的，等待剪貼簿出現內容，才繼續跑下去。
+	if % temp != "" 
+		ClipWait
 	
 	BlockInput Off
 	
