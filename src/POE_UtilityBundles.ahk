@@ -173,9 +173,9 @@ global Tab2ndLastY
 
 ReadSettings()
 
-;此段落須放置在RunGUI()，因TurnOffHotkey會用到
+;此段落須放置在RunGUI()之前，因TurnOffHotkey會用到
 ;當按下按鍵quickFlasksHotkey0時，改成執行QuickFlaskLabel0動作，該動作檢查quick_flask_active是否開啟。
-;若開啟則執行QuickFlask函數，也就是快速飲用quick_flask_list的藥水
+;若開啟則執行QuickFlask函數，也就是快速使用quick_flask_list的藥水
 ;提供兩種不同版本
 Hotkey, %quickFlasksHotkey0%, QuickFlaskLabel0
 Hotkey, %quickFlasksHotkey1%, QuickFlaskLabel1 
@@ -190,7 +190,7 @@ RunGUI()
 ;按住F12來停止所有運作中的功能。若按住數秒後仍卡死，請使用Ctrl+Alt+Del叫出工作管理員，再手動停止工作。
 ;Press and hold F12 to stop all running functions. If it is still stuck after holding it down for a few seconds, please use Ctrl+Alt+Del to call out the Task Manager, and then stop the work manually.
 
-;同一行如果要有程式又想要有註解，分號前需要有空格鍵，不然會算是文法錯誤。
+;同一行如果要有程式又想要有註解，分號後需要有空格鍵，不然會算是文法錯誤。
 
 
 ~XButton2::QuickFlask(quick_flask_list)    
@@ -264,6 +264,7 @@ RunGUI()
 ~+v::Announcement()                        
 ; Shift+V: Broadcast in multiple trading channels in turn. When using it, the input method needs to be in uppercase English. But it is of little use in international servers.
 ; 在多個交易頻道中廣播，使用時輸入法需切成大寫英文。但在國際服的用處不大。
+; 若用其他使用者身分執行PoE，注意需使用預設輸入法(系統開機時自然顯示的輸入法)，此時若中英文之間無法透過shift來切換，可用ctrl+空白鍵達到切換效果。
 
 ~^PgUp::QuickSearchItem()                  
 ; Ctrl+PageUp: Click to check the price on the official website. But Awakened PoE Trade (international server) or rchin-poe-trade (hotcool) are more useful, so this one has been abandoned. 

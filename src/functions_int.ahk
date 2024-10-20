@@ -344,45 +344,49 @@ QuickScouringAndAlchemy(ScouringX,ScouringY,ItemX,ItemY,AlchemyX,AlchemyY){
 }
 
 
+
 QuickBagmoving(BagFirstX,BagFirstY,BagLastX,BagLastY){
 
-;背包欄最左上邊緣的尖角,改成用全域變數
-;BagFirstX = 1694
-;BagFirstY = 781
-;背包欄最右下邊緣的尖角,改成用全域變數
-;BagLastX = 2539
-;BagLastY = 1137
-BagPosX := []
-BagPosY := []
+	;背包欄最左上邊緣的尖角,改成用全域變數
+	;BagFirstX = 1694
+	;BagFirstY = 781
+	;背包欄最右下邊緣的尖角,改成用全域變數
+	;BagLastX = 2539
+	;BagLastY = 1137
+	;背包座標的數列
+	BagPosX := []
+	BagPosY := []
 
 	;由左上角和右下角座標，計算60個需操作的位置。
 	loop , 60
-	{
+		{
 
-	TempX =% BagFirstX+((BagLastX-BagFirstX)/12)*Floor((A_index-1)/5)+(BagLastX-BagFirstX)/12/2
-	BagPosX.Push(TempX)
-	TempY =% BagFirstY+(BagLastY-BagFirstY)/5*Mod(A_index-1,5)+(BagLastY-BagFirstY)/5/2
-	BagPosY.Push(TempY)
-	}
+		;初始X座標 + 格子長度*無條件捨去((當前數字-1)/5) + 格子一半長度
+		TempX =% BagFirstX+((BagLastX-BagFirstX)/12)*Floor((A_index-1)/5)+(BagLastX-BagFirstX)/12/2
+		BagPosX.Push(TempX)
+		;初始Y座標 + 格子高度*餘數((當前數字-1)/5) + 格子一半高度
+		TempY =% BagFirstY+(BagLastY-BagFirstY)/5*Mod(A_index-1,5)+(BagLastY-BagFirstY)/5/2
+		BagPosY.Push(TempY)
+		}
 
     BlockInput On
     send {Ctrl down}
 	MouseGetPos,tempX,tempY
 	
     for k, v in BagPosX
-    {	
-	
-    if GetKeyState("F12", "P") 
-    break 
-	
-    MouseMove,BagPosX[k],BagPosY[k],1
-	//國際服間隔個時間增加
-	Random, rand, 20,40
-	
-    Sleep, rand	
-    MouseClick
-    Sleep, rand	
-    }
+		{	
+		
+		if GetKeyState("F12", "P") 
+		break 
+		
+		MouseMove,BagPosX[k],BagPosY[k],1
+		//國際服間隔個時間增加
+		Random, rand, 20,40
+		
+		Sleep, rand	
+		MouseClick
+		Sleep, rand	
+		}
 	
 	MouseMove,tempX,tempY,1
     send {Ctrl up}
