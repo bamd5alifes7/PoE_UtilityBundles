@@ -1,10 +1,14 @@
-[中文版說明](https://github.com/heyfey/POE_Utility/blob/master/README.md)
+[中文版說明](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/README.md)
+
+
+First, thanks to the original creator, heyfey's POE_Utility. PoE_UtilityBundles is a branch based on this work.
+
 
 ## Overview
 
-**POE-Utility** provides shortcuts for PoE such as: **quick-loot**, **quick-flasks**, **auto-flasks**, and **switch channel**, etc. These shorcuts can significantly improve one's gaming experience
+**PoE_UtilityBundles** provides shortcuts for PoE such as: **quick-loot**, **quick-flasks**, **auto-flasks**, and **switch channel**, etc. These shorcuts can significantly improve one's gaming experience
 
-Though I simply implement some features I need, any suggestion is welcome. Feel free to open issues or contact tsungtsohsieh@gmail.com
+Though I simply implement some features I need, any suggestion is welcome.
 
 ## *WARNING* 
 
@@ -12,75 +16,120 @@ Though I simply implement some features I need, any suggestion is welcome. Feel 
 
 ---
 
-* [Demo](#Demo)
 * [Usage](#Usage)
-* [GUI](#GUI)
-* [Settings](#Settings)
+* [How to Close](#How to Close)
+* [Interface Example](#Interface Example)
+* [Features](#Features)
+* [Advanced Settings](#Advanced Settings)
 
 ---
 
-## Demo
-
-Please click in the links to see demos and how to use.
-
-### [Quick loot](https://i.imgur.com/2PIWJTh.gifv)
-
-### [Auto-flasks when low life](https://i.imgur.com/8lDp650.gifv)
-
-### [Quick-flasks](https://i.imgur.com/GDZHEh4.gifv)
-
-
 ## Usage
 
-1. Clone or download this repository
+Direct Use：
 
-2. Run `POE_Utility.exe` **as administrator**
+1. Download。
+   
+   (1)Click the 'Clone' button at the top of this page, then select 'Download ZIP'.
+   
+   (2)Click the release link on the middle-right of this page, then select POE_UtilityBundles.exe or Source code (zip).
 
-~~1. Download and install [AutoHotKey](https://www.autohotkey.com/); If unexpectedly shutdown or hang, try version [`AutoHotkey_1.1.28.02`](https://www.autohotkey.com/download/1.1/)~~
+2. Double-click POE_UtilityBundles.exe to start. You may skip the introduction screen.
 
-~~2. Clone or download this repository~~
+P.S. If Windows Defender SmartScreen blocks it, click "More info" > "Run anyway" to proceed.
 
-~~3. Run `POE_Utility.ahk` **as administrator**~~
+Or, run from source code：
 
-## GUI
+1. Download and install [AutoHotKey](https://www.autohotkey.com/) 。 If it crashes, try version AutoHotkey_1.1.34.02.
 
-![image](https://user-images.githubusercontent.com/19587790/129465862-2ec27bde-d61f-4a6f-9a46-f80022d12830.png)
+2. Download。
+   
+   (1) Click the 'Clone' button at the top of this page, then select 'Download ZIP'.
+   
+   (2)點選此頁面右中Releases下的超連結。再點選Source code(zip)。
 
-## Settings
-
-### Quick-loot
-
-[demo](https://i.imgur.com/2PIWJTh.gifv)
-
-+ AHK will search for pixel with target **color** and click it; we use itemfilter to display color we want
-+ In your itemfilter, add `SetBorderColor 100 0 122 255` to your desire loot
-+ Or simply use the [itemfilter I provided](https://github.com/heyfey/POE_Utility/tree/master/itemfilter) (modified from [NeverSink-Filter](https://github.com/NeverSinkDev/NeverSink-Filter) ) to quick-loot: currency, 6-socket, map, fossil, resonator, incubator, valuable prophecy, divination card, high-tier essence, oil
-
-
-### Quick-flasks
-
-[demo](https://i.imgur.com/GDZHEh4.gifv) (Please click in the link to see how to use)
-
-+ Different character may need different settings for quick-flasks and auto-flasks
-+ You can change key binding and flasks list in GUI
-+ `list` is the key sequence you want to send, which is not limited to flasks, you can add as many keys (skills) as you want; use `-` as delimiter 
-+ For example: `2-3-4-5-q-w-e`, `2345` for utility flasks, `q` for Blood Rage, `w` for Steelskin/Molten Shell, `e` for Phase Run
-+ In game, use `Ctrl + L` to turn on/off quick-flasks
+3. Open the source code in an editor like Notepad++ to review.
+   
+4. Double-click POE_UtilityBundles.ahk to start. You may skip the introduction screen.
 
 
-### Auto-flasks 
-
-[demo](https://i.imgur.com/8lDp650.gifv) (Please click in the link to see how to use)
-
-1. Input flasks list, use `-` as delimiter
-
-2. Point to blood line you want to auto-flasks, press `Ctrl + Shift + F` to comfirm
-
-3. In game, use `Ctrl + F` to turn on/off auto-flasks
+## How to Close
 
 
-### Advanced settings
+1.In the GUI interface, click the X symbol in the upper right corner to close POE_UtilityBundles.
 
-Advanced AHK users can further customize features in `functions.ahk`, contributions are also welcome
+2.Alternatively, you can find the POE_Utilitybundles AHK icon in the system tray and close it manually.
 
+## Interface Example
+
+
+![image](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/demo/%E4%BB%8B%E9%9D%A2.png)
+
+
+## Features
+
+Open the program and click OK to start using it.
+
+Press and hold F12 to stop all running functions. If it is still stuck after holding it down for a few seconds, please use Ctrl+Alt+Del to call out the work administrator, and then stop the work manually.
+
+The default button settings are all for the 2560x1080 window size. If your window does not have this setting, please use SHIFT+D to query the coordinate positions and set the coordinate settings in the function.
+
+The GUI interface can be minimized but cannot be closed during use.
+
+[XButton2] Front mouse side button: Click the button once to use the medicine in the medicine list.
+
+[Ctrl+L] Turns on or off the one-click drinking mode that activates the hotkey. When enabled, the action of pressing a hotkey is changed to a keystroke in the output list.
+
+[XButton1] After pressing the side button of the mouse, hold down the right button and cast the skills in the list regularly.
+
+[MButton] Mouse wheel: After pressing, start the timed action. Including continuous attack, timed drinking and timed attack. The default is four seconds per cycle.
+
+[F3] Quick input, the default is Korean world frequency 168.
+
+[Ctrl+F3] Quick input, the default is Korean trading frequency 615.
+
+[Ctrl+F4] Quick input, the default is English world frequency 666.
+
+[F5] Quick input, the default is to enter the hideout.
+
+[F6] Quick input, the default is world frequency 5587.
+
+[Ctrl+F6] Quick input, default is None.
+
+[Ctrl+~] Return to the casting interface.
+
+[Shift+D] Get the color and coordinate position of the item.
+
+[F2] With the backpack open, select the items in the backpack one by one, for example, throw them into the warehouse.
+
+[Shift+F2] Quickly count transaction columns
+
+After pressing [F4], use the Recast Stone and Philosopher's Stone for the item coordinates. The default is the item in the currency warehouse page.
+
+[F9] For the currency that has been picked up by right-clicking, such as link stones, continuously click the item on the cursor coordinates, and F12 is the stop key.
+
+[F10] Single click to start quickly moving objects from the first column to the fifth column on the left side of the warehouse. The default is a warehouse page without folders.
+
+[Ctrl+F10] Click once to start quickly moving objects in the sixth to tenth columns on the left side of the warehouse. The default is a warehouse page without folders.
+
+[F11] Hold down the button and move the mouse cursor to quickly move the object the cursor passes. .
+
+[Ctrl+D] Turn on/off automatic detonation of mines
+
+[F10] Right-click the RButton, and when the automatic detonation of mines is turned on, use the right-click skill and detonate the mines.
+
+[Shift+V] is broadcast in multiple trading channels. When using it, the input method needs to be cut into uppercase English. But it is of little use in international servers.
+
+[Ctrl+PageUp] Check prices with one click. But Awakened PoE Trade (international server) or rchin-poe-trade (hotcool) are more useful and have been abandoned.
+
+[Ctrl+Shift+F] Based on the mouse cursor position, set the blood volume coordinates and color required to automatically drink water.
+
+[Ctrl+Shift+L] Turn on/off automatic drinking water. Detect the color of the specified coordinates. If it is not the specified color, use potion. But there will be errors when the light is different. So it's not very useful.
+
+[Ctrl+a] Continue to press to automatically pick up the item. It needs to be matched with the item filter of the specified color. However, since the pickup speed cannot be too fast, it is of little use.
+
+
+### advanced settings
+
+Advanced AHK users can make more detailed adjustments in functions_int.ahk, or add their favorite functions depending on the situation.
 
