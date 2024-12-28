@@ -8,7 +8,8 @@ MsgBox,English user can skip this Chinese introduction, it is not necessary.`r`n
 #Include gui.ahk
 #Include rw_settings.ahk
 
-#IfWinActive, Path of Exile
+;兼容二代 拔掉只能在poe視窗運行的規則
+;#IfWinActive, Path of Exile
 #SingleInstance force
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Persistent ; Stay open in background
