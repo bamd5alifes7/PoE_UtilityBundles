@@ -178,6 +178,8 @@ ReadSettings()
 ;當按下按鍵quickFlasksHotkey0時，改成執行QuickFlaskLabel0動作，該動作檢查quick_flask_active是否開啟。
 ;若開啟則執行QuickFlask函數，也就是快速使用quick_flask_list的藥水
 ;提供兩種不同版本
+
+;此功能可能壞掉了，很奇怪，變成%quickFlasksHotkey0%中的按鍵卡死
 Hotkey, %quickFlasksHotkey0%, QuickFlaskLabel0
 Hotkey, %quickFlasksHotkey1%, QuickFlaskLabel1 
 

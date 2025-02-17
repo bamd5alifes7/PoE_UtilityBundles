@@ -1,8 +1,8 @@
 ﻿ReadSettings(){
 
 
-    IniRead, quickFlasksHotkey0,  settings.ini, settings, quickFlasksHotkey0,  2
-    IniRead, quickFlasksHotkey1,  settings.ini, settings, quickFlasksHotkey1,  3
+    IniRead, quickFlasksHotkey0,  settings.ini, settings, quickFlasksHotkey0,  ^2
+    IniRead, quickFlasksHotkey1,  settings.ini, settings, quickFlasksHotkey1,  ^3
     IniRead, quick_flask_list,    settings.ini, settings, quick_flask_list,    1-2-3-4-5
     IniRead, quick_flask_list_1,  settings.ini, settings, quick_flask_list_1,  3-w	
 	IniRead, AutoTime_flask_list, settings.ini, settings, AutoTime_flask_list,  1

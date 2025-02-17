@@ -39,20 +39,20 @@ Gui, Add, Text, x142 y149 w100 h20 , to turn on /off
 Gui, Add, Text, x62 y169 w360 h30 , When enabled`, changes hotkey actions to keys in the output list.
 
 
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x42 y209 w500 h20 , Two kinds of Hotkey (accept key combination)
+Gui, Font, S8 CDefault bold strike, Verdana
+Gui, Add, Text, x42 y209 w500 h20 , Two kinds of Hotkey (accept key combination)(Deprecated)
 
 ;(1)
-Gui, Font, S8 CDefault norm, Verdana
+Gui, Font, S8 CDefault norm strike, Verdana
 ;vChosenHotkey的含意是可接受使用者按下的按鍵組合，例如Ctrl+2。此處範例命名為vquickFlasksHotkey0
-Gui, Add, Hotkey, vquickFlasksHotkey0 x42 y239 w40 h20 , %quickFlasksHotkey0%
+Gui, Add, Hotkey, vquickFlasksHotkey0 x42 y239 w50 h20 , %quickFlasksHotkey0%
 Gui, Add, Text, x100 y239 w180 h20 , to quick use flasks (1)`, list:
 
 Gui, Add, Text, x285 y239 w140 h20 , Same as XButton2
 
 ;(2)
 ;vChosenHotkey的含意是可接受使用者按下的按鍵組合，例如Ctrl+2。此處範例命名為quickFlasksHotkey1
-Gui, Add, Hotkey, vquickFlasksHotkey1 x42 y269 w40 h20 , %quickFlasksHotkey1%
+Gui, Add, Hotkey, vquickFlasksHotkey1 x42 y269 w50 h20 , %quickFlasksHotkey1%
 Gui, Add, Text, x100 y269 w180 h20 , to quick use flasks (2)`, list:
 Gui, Add, Edit, x285 y269 w140 h20 vquick_flask_list_1, %quick_flask_list_1%
 
