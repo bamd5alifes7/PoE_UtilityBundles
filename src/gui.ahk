@@ -1,391 +1,269 @@
-﻿; Generated using SmartGUI Creator 4.0
-; 但若想要使用 SmartGUI Creator 再次開啟此檔，請先另外備份。因SmartGUI Creator會移除函數及註解
-
 RunGUI(){
-
-Gui, Font, S8 CDefault bold, Verdana
-;可延伸閱讀 g-標籤 概念，點擊會運行GoToWebsite標籤
-Gui, Add, Text, x30 y15 w120 h20 +cBlue gGoToWebsite, Go to GitHub
-Gui, Font, norm, 
-Gui, Add, Edit, x252 y20 w0 h0 , 123 ; dummy edit to avoid a mysterious bug
-
-;上方公告
-Gui, Font, S8 CDefault bold cRed, Verdana
-;按住F12來停止所有運作中的功能。若按住數秒後仍卡死，請使用Ctrl+Alt+Del叫出工作管理員，再手動停止工作。
-Gui, Add, Text, x150 y15 w650 h30 , Press and hold F12 to stop all running functions. If it is still stuck after holding it down for a few seconds`, please use Ctrl+Alt+Del to call out the Task Manager`, and then stop the work manually.`n
-;以下按鍵設置皆為2560x1080視窗大小下的情況。若你的視窗並非此設定，請使用SHIFT+D查詢，並設定功能中的座標設定值。
-Gui, Add, Text, x810 y15 w720 h30 , The following button settings are all based on the 2560x1080 window size. If your window does not have this setting`, please use Shift+D to query and set the coordinate settings in the function.
-;運作時可最小化但不可關閉此視窗。
-Gui, Add, Text, x1560 y15 w300 h40 , This window can be minimized but cannot be closed during operation
-
-
-; Quick Flasks
-
-Gui, Font, S8 CDefault bold, Verdana
-;XButton2
-Gui, Add, GroupBox, x22 y59 w430 h240 , QuickFlask
-Gui, Add, Text, x42 y99 w230 h20 , XButton2 (Mouse front side button)
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x50 y125 w250 h20 , Click to use the flask in the flask list.
-Gui, Add, Edit, x285 y120 w140 h20 , %quick_flask_list%
-
-;Ctrl + L
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x42 y149 w80 h20 , Ctrl + L
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x142 y149 w100 h20 , to turn on /off
-Gui, Add, Text, x62 y169 w360 h30 , When enabled`, changes hotkey actions to keys in the output list.
-
-
-Gui, Font, S8 CDefault bold strike, Verdana
-Gui, Add, Text, x42 y209 w500 h20 , Two kinds of Hotkey (accept key combination)(Deprecated)
-
-;(1)
-Gui, Font, S8 CDefault norm strike, Verdana
-;vChosenHotkey的含意是可接受使用者按下的按鍵組合，例如Ctrl+2。此處範例命名為vquickFlasksHotkey0
-Gui, Add, Hotkey, vquickFlasksHotkey0 x42 y239 w50 h20 , %quickFlasksHotkey0%
-Gui, Add, Text, x100 y239 w180 h20 , to quick use flasks (1)`, list:
-
-Gui, Add, Text, x285 y239 w140 h20 , Same as XButton2
-
-;(2)
-;vChosenHotkey的含意是可接受使用者按下的按鍵組合，例如Ctrl+2。此處範例命名為quickFlasksHotkey1
-Gui, Add, Hotkey, vquickFlasksHotkey1 x42 y269 w50 h20 , %quickFlasksHotkey1%
-Gui, Add, Text, x100 y269 w180 h20 , to quick use flasks (2)`, list:
-Gui, Add, Edit, x285 y269 w140 h20 vquick_flask_list_1, %quick_flask_list_1%
-
-
-
-;找字用的 紅色底線粗體 但Hotkey內不會顯示顏色
-Gui, Font, cRed underline bold, Verdana
-Gui, Font, S8 CDefault norm, Verdana
-
-
-
-;AutoTime
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, GroupBox, x22 y319 w430 h350 , AutoTime
-;XButton1
-Gui, Add, Text, x42 y339 w230 h20 , XButton1 (Mouse back side button)
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Edit, x285 y339 w140 h20 , %AutoTime_attack_list%
-Gui, Add, Text, x52 y359 w370 h30 , Click, Will hold down the right mouse button and press the keys in the list periodically.
-
-
-;MButton
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x42 y399 w230 h20 , MButton (Mouse Wheel)
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x52 y419 w370 h40 , Click, Will Hold down keep_attack_list and press the keys in the AutoTime_flask_list and AutoTime_attack_list periodically.
-
-Gui, Add, Text, x130 y455 w140 h20 , keep_attack_list
-Gui, Add, Edit, x285 y455 w140 h20 , %keep_attack_list%
-
-Gui, Add, Text, x130 y485 w140 h20 , AutoTime_flask_list
-Gui, Add, Edit, x285 y485 w140 h20 , %AutoTime_flask_list%
-
-Gui, Add, Text, x130 y515 w140 h20 , AutoTime_attack_list
-Gui, Add, Text, x285 y515 w140 h20 , Same as XButton1
-
-Gui, Add, Text, x130 y545 w140 h20 , AutoInterval
-Gui, Add, Edit, x285 y545 w60 h20 , %AutoInterval%
-Gui, Add, Text, x380 y545 w30 h20 , (ms)
-
-;公告，僅建議使用立即施放類型的技能。不然很可能會無法施放完畢。
-Gui, Font, S8 CDefault bold cRed, Verdana
-Gui, Add, Text, x52 y575 w370 h40 , Only immediate cast type skills are recommended. Otherwise, it is very likely that the cast will not be completed.
-
-;Quick Enter
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, GroupBox, x482 y59 w440 h250 , Quick Enter
-Gui, Add, Text, x500 y90 w80 h20 , F3
-Gui, Add, Text, x500 y120 w80 h20 , Ctrl+F3
-Gui, Add, Text, x500 y150 w80 h20 , Ctrl+F4
-Gui, Add, Text, x500 y180 w80 h20 , F5
-Gui, Add, Text, x500 y210 w80 h20 , F6
-Gui, Add, Text, x500 y240 w80 h20 , Ctrl+F6
-Gui, Add, Text, x502 y269 w80 h20 , Ctrl + ~
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Edit, x592 y89 w110 h20 vquickEnterText0, %quickEnterText0%
-Gui, Add, Edit, x592 y119 w110 h20 vquickEnterText1, %quickEnterText1%
-Gui, Add, Edit, x592 y149 w110 h20 vquickEnterText2, %quickEnterText2%
-Gui, Add, Edit, x592 y179 w110 h20 vquickEnterText3, %quickEnterText3%
-Gui, Add, Edit, x592 y209 w110 h20 vquickEnterText4, %quickEnterText4%
-Gui, Add, Edit, x592 y239 w110 h20 vquickEnterText5, %quickEnterText5%
-Gui, Add, Edit, x592 y269 w110 h20 vquickEnterText7, %quickEnterText7%
-
-;Misc
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, GroupBox, x482 y319 w440 h590 , Misc
-Gui, Add, Text, x492 y349 w80 h20 , Shift + D
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x592 y349 w250 h20 , get [coordinate, color] on cursor
-
-;F2
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x492 y379 w80 h20 , F2
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x592 y379 w300 h30 , Quick moving item from Quick moving item from inventory
-
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x512 y469 w390 h20 , The sharp corner of the lower right edge of your inventory
-Gui, Add, Text, x512 y409 w380 h20 , The sharp corner of the upper left edge of your inventory
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x512 y439 w70 h20 , BagFirstX
-Gui, Add, Text, x692 y439 w70 h20 , BagFirstY
-Gui, Add, Text, x512 y499 w70 h20 , BagLastX
-Gui, Add, Text, x692 y499 w70 h20 , BagLastY
-Gui, Add, Edit, x592 y439 w90 h20 , %BagFirstX%
-Gui, Add, Edit, x772 y439 w90 h20 , %BagFirstY%
-Gui, Add, Edit, x592 y499 w90 h20 , %BagLastX%
-Gui, Add, Edit, x772 y499 w90 h20 , %BagLastY%
-
-;Shift+F2
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x492 y539 w80 h20 , Shift+F2
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x592 y539 w300 h20 , Quick scanning item from trade
-
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x512 y569 w370 h20 , The sharp corner of the upper left edge of trade
-Gui, Add, Text, x512 y629 w380 h20 , The sharp corner of the lower right edge of trade
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x512 y599 w70 h20 , tradeFirstX
-Gui, Add, Text, x692 y599 w70 h20 , tradeFirstY
-Gui, Add, Text, x512 y659 w70 h20 , tradeLastX
-Gui, Add, Text, x692 y659 w70 h20 , tradeLastY
-Gui, Add, Edit, x592 y599 w90 h20 , %tradeFirstX%
-Gui, Add, Edit, x772 y599 w90 h20 , %tradeFirstY%
-Gui, Add, Edit, x592 y659 w90 h20 , %tradeLastX%
-Gui, Add, Edit, x772 y659 w90 h20 , %tradeLastY%
-
-;F4
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x492 y699 w80 h20 , F4
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x592 y699 w300 h50 , After pressing`, use Orb of Scouring and Orb of Alchemy for the item coordinates. The default is item in currency tab.
-
-Gui, Add, Text, x512 y749 w80 h20 , ScouringX
-Gui, Add, Text, x772 y749 w80 h20 , ScouringY
-Gui, Add, Text, x512 y779 w80 h20 , AlchemyX
-Gui, Add, Text, x772 y779 w80 h20 , AlchemyY
-Gui, Add, Text, x512 y809 w80 h20 , ItemX
-Gui, Add, Text, x772 y809 w80 h20 , ItemY
-
-Gui, Add, Edit, x592 y749 w90 h20 , %ScouringX%
-Gui, Add, Edit, x772 y749 w90 h20 , %ScouringY%
-Gui, Add, Edit, x592 y779 w90 h20 , %AlchemyX%
-Gui, Add, Edit, x772 y779 w90 h20 , %AlchemyY%
-Gui, Add, Edit, x592 y809 w90 h20 , %ItemX%
-Gui, Add, Edit, x772 y809 w90 h20 , %ItemY%
-
-
-
-;Misc2
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, GroupBox, x960 y59 w480 h850 , Misc2
-
-
-;F9
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x990 y89 w80 h20 , F9
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1082 y89 w290 h40 , For the currency that has been picked up by right-clicking`, such as Orb of Fusing`, continuously click on the item at the cursor coordinates.
-
-;F10
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x990 y159 w80 h20 , F10
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1082 y159 w290 h40 , Click to move objects in the first to fifth columns on the left side of the tab. The default is tab without folders.
-
-
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1010 y219 w380 h20 , The sharp corner of the upper left edge of tab
-Gui, Add, Text, x1010 y279 w380 h30 , The sharp corner at the bottom right edge of the fifth column of the tab
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1010 y249 w70 h20 , TabFirstX
-Gui, Add, Text, x1200 y249 w70 h20 , TabFirstY
-Gui, Add, Text, x1010 y319 w70 h20 , TabLastX
-Gui, Add, Text, x1200 y319 w70 h20 , TabLastY
-Gui, Add, Edit, x1092 y249 w90 h20 , %TabFirstX%
-Gui, Add, Edit, x1282 y249 w90 h20 , %TabFirstY%
-Gui, Add, Edit, x1092 y319 w90 h20 , %TabLastX%
-Gui, Add, Edit, x1282 y319 w90 h20 , %TabLastY%
-
-;Ctrl+F10
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x990 y359 w80 h20 , Ctrl+F10
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1082 y359 w290 h40 , Click to move objects in the sixth to tenth columns on the left side of the tab. The default is tab without folders.
-
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1010 y409 w360 h30 , The sharp corner of the upper left edge of the sixth column of the tab
-Gui, Add, Text, x1010 y479 w360 h30 , The sharp corner at the bottom right edge of the tenth column of the warehouse tab
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1010 y449 w90 h20 , Tab2ndFirstX
-Gui, Add, Edit, x1112 y449 w70 h20 , %Tab2ndFirstX%
-Gui, Add, Text, x1200 y449 w90 h20 , Tab2ndFirstY
-Gui, Add, Edit, x1302 y449 w70 h20 , %Tab2ndFirstY%
-Gui, Add, Text, x1010 y519 w90 h20 , Tab2ndLastX
-Gui, Add, Edit, x1112 y519 w70 h20 , %Tab2ndLastX%
-Gui, Add, Text, x1200 y519 w90 h20 , Tab2ndLastY
-Gui, Add, Edit, x1302 y519 w70 h20 , %Tab2ndLastY%
-
-
-;F11
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x990 y559 w80 h20 , F11
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1082 y559 w300 h40 , Hold the button and move the mouse cursor to quickly move the object the cursor passes.
-
-;Ctrl+D
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x990 y609 w80 h20 , Ctrl+D
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1082 y609 w300 h30 , Turn on/off automatic detonate mines.
-
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1010 y639 w110 h30 , RButton (mouse Right-click)
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1132 y639 w300 h30 , When automation detonate mines is turned on, use right-click skills and detonate mines.
-Gui, Add, Text, x1132 y679 w130 h20 , mine_laying_time
-Gui, Add, Edit, x1262 y679 w70 h20 , %mine_laying_time%
-Gui, Add, Text, x1352 y679 w30 h20 , (ms)
-
-;Deprecated
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, GroupBox, x1462 y59 w430 h350 , Deprecated
-
-;Shift+V
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1482 y89 w80 h20 , Shift+V
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1572 y89 w300 h50 , Broadcast in multiple trading channels in turn. When using it`, the input method needs to be in uppercase English. But it is of little use in international servers.
-Gui, Add, Edit, x1482 y149 w400 h50 , %Announce%
-
-;Ctrl+PageUp
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1482 y219 w80 h20 , Ctrl+PageUp
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1582 y219 w290 h80 , Click to check the price on the official website. But Awakened PoE Trade (international server) or rchin-poe-trade (hotcool) are more useful`, so this one has been abandoned.
-
-Gui, Font, S8 CDefault bold strike, Verdana
-Gui, Add, Text, x1482 y289 w90 h30 , Ctrl+F (Deprecated)
-Gui, Add, Text, x1582 y289 w280 h30 , to open inventory and use portal scroll (Deprecated)
-Gui, Font, S8 CDefault norm strike, Verdana
-;Gui, Add, Text, x1602 y359 w120 h20 , Portal Scroll X
-;Gui, Add, Edit, x1732 y359 w140 h20 , %portalX%
-;Gui, Add, Text, x1602 y389 w140 h20 , Portal Scroll Y
-;Gui, Add, Edit, x1732 y389 w140 h20 , %portalY%
-
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1482 y329 w350 h20 , This function has been built into the game after 3.24
-
-
-
-;AutoFlask
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, GroupBox, x1462 y529 w430 h170 , AutoFlask
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1482 y549 w380 h50 , Detect the color of the specified coordinates. If it is not the specified color, use Flask. But there will be errors when the light is different. So it's not very useful.
-Gui, Add, Text, x1492 y599 w380 h20 , Point to blood line you want to auto-flasks, and press:
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1492 y629 w100 h20 , Ctrl + Shift + F
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1592 y629 w250 h20 , to set coordinates and color to detect
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1482 y659 w100 h20 , Ctrl + Shift + L
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1592 y659 w150 h20 , to turn on /off`, list:
-Gui, Add, Edit, x1725 y659 w140 h20 vlow_life_flask_list, %low_life_flask_list%
- 
-;Loot
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, GroupBox, x1462 y709 w430 h150 , Loot
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1482 y729 w380 h40 , Requires an item filter of specified color. But the pickup speed cannot be too fast`, so it is not very useful.
-Gui, Add, Text, x1482 y779 w100 h20 , loot color:
-Gui, Add, Edit, x1555 y779 w100 h20 vlootColor, %lootColor%
-
-Gui, Font, S8 CDefault bold, Verdana
-Gui, Add, Text, x1482 y809 w80 h20 , Ctrl + A
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Text, x1555 y809 w180 h20 , Hold to keep looting. delay:
-Gui, Add, Edit, x1750 y809 w60 h20 , %loot_dalay%
-Gui, Add, Text, x1820 y809 w30 h20 , (ms)
-
-
-
-;公告，按下此按鈕儲存，或此視窗關閉後儲存並離開。
-Gui, Font, S8 CDefault bold cRed, Verdana
-Gui, Add, Text, x1500 y890 w240 h40 , Click this button to save, or close this window to save and exit
-
-;按鈕
-Gui, Font, S8 CDefault norm, Verdana
-Gui, Add, Button, x1760 y890 w90 h40 , Apply change
-
-
-;程式名稱
-Gui, Show, x19 y314 h962 w1922, POE_Utilitybundles
-Return
-
-GuiClose:
-SaveSettings()
-ExitApp
-
-
-GoToWebsite:
-Run https://github.com/bamd5alifes7/POE_Utilitybundles
-return
-
+    global mainGui, quick_flask_list, quick_flask_list_1, quickFlasksHotkey0, quickFlasksHotkey1
+    global AutoTime_attack_list, AutoTime_flask_list, keep_attack_list, AutoInterval
+    global quickEnterText0, quickEnterText1, quickEnterText2, quickEnterText3, quickEnterText4, quickEnterText5, quickEnterText7
+    global BagFirstX, BagFirstY, BagLastX, BagLastY, tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    global ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    global TabFirstX, TabFirstY, TabLastX, TabLastY, Tab2ndFirstX, Tab2ndFirstY, Tab2ndLastX, Tab2ndLastY
+    global mine_laying_time, Announce, low_life_flask_list, lootColor, loot_dalay
+
+    mainGui := Gui("+Resize +MinSize920x860", "POE_Utilitybundles")
+    mainGui.MarginX := 20
+    mainGui.MarginY := 16
+    mainGui.SetFont("s9", "Segoe UI")
+    mainGui.Add("Edit", "x0 y0 w0 h0 Hidden")
+
+    mainGui.SetFont("w700 c2B579A")
+    githubText := mainGui.Add("Text", "x20 y16 w780 h20 BackgroundTrans", "Go to GitHub")
+    githubText.OnEvent("Click", GoToWebsite)
+
+    mainGui.SetFont("norm cDefault")
+    mainGui.Add("Text", "x28 y+10 w760 h36", "F12: stop running loops. Coordinates assume 2560x1080 unless you change values (Shift+D). Path of Exile only (script hotkeys).")
+
+    mainGui.SetFont("s9", "Segoe UI")
+    tabCtrl := mainGui.Add("Tab3", "xs y+14 w804 h700", ["Flask / Timer", "Quick Enter", "Coords", "Stash / Tools", "More"])
+
+    tabCtrl.UseTab(1)
+    mainGui.Add("GroupBox", "x16 y120 w780 h228", "QuickFlask")
+    mainGui.SetFont("bold")
+    mainGui.Add("Text", "x32 y146 w360 h18", "XButton2 / mouse front side")
+    mainGui.SetFont("norm")
+    mainGui.Add("Text", "x32 y170 w200 h18", "Flask list (use - between keys)")
+    mainGui.Add("Edit", "x240 y166 w220 h22 vquick_flask_list", quick_flask_list)
+    mainGui.SetFont("bold")
+    mainGui.Add("Text", "x32 y204 w120 h18", "Ctrl + L")
+    mainGui.SetFont("norm")
+    mainGui.Add("Text", "x160 y204 w560 h32", "Toggle: remap configured keys to quick-flask list when on.")
+    mainGui.SetFont("italic")
+    mainGui.Add("Text", "x32 y240 w720 h18", "Extra hotkeys (deprecated UI, still works)")
+    mainGui.SetFont("norm")
+    mainGui.Add("Hotkey", "x32 y264 w72 h22 vquickFlasksHotkey0", quickFlasksHotkey0)
+    mainGui.Add("Text", "x112 y268 w240 h18", "list 1 (same as XButton2)")
+    mainGui.Add("Hotkey", "x32 y294 w72 h22 vquickFlasksHotkey1", quickFlasksHotkey1)
+    mainGui.Add("Text", "x112 y298 w120 h18", "list 2")
+    mainGui.Add("Edit", "x220 y292 w240 h22 vquick_flask_list_1", quick_flask_list_1)
+
+    mainGui.Add("GroupBox", "x16 y356 w780 h320", "AutoTime")
+    mainGui.SetFont("bold")
+    mainGui.Add("Text", "x32 y382 w320 h18", "XButton1 / mouse back side")
+    mainGui.SetFont("norm")
+    mainGui.Add("Text", "x32 y406 w200 h18", "Attack sequence (timer)")
+    mainGui.Add("Edit", "x240 y402 w220 h22 vAutoTime_attack_list", AutoTime_attack_list)
+    mainGui.Add("Text", "x32 y436 w740 h32", "MButton: holds keep_attack_list, then cycles flask + attack keys. Use instant-cast skills only.")
+    mainGui.Add("Text", "x48 y474 w140 h18", "keep_attack_list")
+    mainGui.Add("Edit", "x200 y470 w260 h22 vkeep_attack_list", keep_attack_list)
+    mainGui.Add("Text", "x48 y504 w140 h18", "AutoTime_flask_list")
+    mainGui.Add("Edit", "x200 y500 w260 h22 vAutoTime_flask_list", AutoTime_flask_list)
+    mainGui.Add("Text", "x48 y534 w160 h18", "AutoTime_attack_list")
+    mainGui.Add("Text", "x200 y534 w360 h18", "(same field as XButton1 above)")
+    mainGui.Add("Text", "x48 y560 w140 h18", "AutoInterval (ms)")
+    mainGui.Add("Edit", "x200 y556 w80 h22 vAutoInterval", AutoInterval)
+    mainGui.SetFont("bold c800000")
+    mainGui.Add("Text", "x32 y592 w740 h36", "Non-instant skills may not finish before next step.")
+    mainGui.SetFont("norm cDefault")
+
+    tabCtrl.UseTab(2)
+    mainGui.Add("GroupBox", "x16 y120 w780 h540", "Quick Enter (chat)")
+    mainGui.SetFont("bold")
+    mainGui.Add("Text", "x36 y148 w120 h18", "F3")
+    mainGui.Add("Text", "x36 y180 w120 h18", "Ctrl+F3")
+    mainGui.Add("Text", "x36 y212 w120 h18", "Ctrl+F4")
+    mainGui.Add("Text", "x36 y244 w120 h18", "F5")
+    mainGui.Add("Text", "x36 y276 w120 h18", "F6")
+    mainGui.Add("Text", "x36 y308 w120 h18", "Ctrl+F6")
+    mainGui.Add("Text", "x36 y340 w120 h18", "Ctrl+~")
+    mainGui.SetFont("norm")
+    mainGui.Add("Edit", "x160 y142 w580 h24 vquickEnterText0", quickEnterText0)
+    mainGui.Add("Edit", "x160 y174 w580 h24 vquickEnterText1", quickEnterText1)
+    mainGui.Add("Edit", "x160 y206 w580 h24 vquickEnterText2", quickEnterText2)
+    mainGui.Add("Edit", "x160 y238 w580 h24 vquickEnterText3", quickEnterText3)
+    mainGui.Add("Edit", "x160 y270 w580 h24 vquickEnterText4", quickEnterText4)
+    mainGui.Add("Edit", "x160 y302 w580 h24 vquickEnterText5", quickEnterText5)
+    mainGui.Add("Edit", "x160 y334 w580 h24 vquickEnterText7", quickEnterText7)
+    mainGui.Add("Text", "x36 y376 w700 h22", "Slot quickEnterText6 exists in INI but has no hotkey in script.")
+
+    tabCtrl.UseTab(3)
+    mainGui.Add("GroupBox", "x16 y120 w780 h56", "Probe")
+    mainGui.Add("Text", "x28 y134 w740 h20", "Shift+D: read pixel color + position at cursor (for this .ini).")
+    mainGui.Add("GroupBox", "x16 y186 w780 h132", "F2 - bag corners (TL / BR)")
+    mainGui.Add("Text", "x40 y210 w72 h18", "BagFirstX")
+    mainGui.Add("Edit", "x116 y206 w100 h22 vBagFirstX", BagFirstX)
+    mainGui.Add("Text", "x232 y210 w72 h18", "BagFirstY")
+    mainGui.Add("Edit", "x308 y206 w100 h22 vBagFirstY", BagFirstY)
+    mainGui.Add("Text", "x40 y238 w72 h18", "BagLastX")
+    mainGui.Add("Edit", "x116 y234 w100 h22 vBagLastX", BagLastX)
+    mainGui.Add("Text", "x232 y238 w72 h18", "BagLastY")
+    mainGui.Add("Edit", "x308 y234 w100 h22 vBagLastY", BagLastY)
+    mainGui.Add("GroupBox", "x16 y324 w780 h120", "Shift+F2 - trade window corners")
+    mainGui.Add("Text", "x40 y360 w90 h18", "tradeFirstX")
+    mainGui.Add("Edit", "x134 y356 w100 h22 vtradeFirstX", tradeFirstX)
+    mainGui.Add("Text", "x252 y360 w90 h18", "tradeFirstY")
+    mainGui.Add("Edit", "x346 y356 w100 h22 vtradeFirstY", tradeFirstY)
+    mainGui.Add("Text", "x40 y392 w90 h18", "tradeLastX")
+    mainGui.Add("Edit", "x134 y388 w100 h22 vtradeLastX", tradeLastX)
+    mainGui.Add("Text", "x252 y392 w90 h18", "tradeLastY")
+    mainGui.Add("Edit", "x346 y388 w100 h22 vtradeLastY", tradeLastY)
+    mainGui.Add("GroupBox", "x16 y442 w780 h240", "F4 - Scouring / Alchemy / item")
+    mainGui.Add("Text", "x40 y470 w80 h18", "ScouringX")
+    mainGui.Add("Edit", "x124 y466 w90 h22 vScouringX", ScouringX)
+    mainGui.Add("Text", "x230 y462 w80 h18", "ScouringY")
+    mainGui.Add("Edit", "x314 y458 w90 h22 vScouringY", ScouringY)
+    mainGui.Add("Text", "x40 y498 w80 h18", "AlchemyX")
+    mainGui.Add("Edit", "x124 y494 w90 h22 vAlchemyX", AlchemyX)
+    mainGui.Add("Text", "x230 y498 w80 h18", "AlchemyY")
+    mainGui.Add("Edit", "x314 y494 w90 h22 vAlchemyY", AlchemyY)
+    mainGui.Add("Text", "x40 y526 w80 h18", "ItemX")
+    mainGui.Add("Edit", "x124 y522 w90 h22 vItemX", ItemX)
+    mainGui.Add("Text", "x230 y526 w80 h18", "ItemY")
+    mainGui.Add("Edit", "x314 y522 w90 h22 vItemY", ItemY)
+
+    tabCtrl.UseTab(4)
+    mainGui.Add("GroupBox", "x16 y120 w780 h220", "F10 / Ctrl+F10 - stash tab corners")
+    mainGui.Add("Text", "x32 y138 w740 h18", "Tab 1-5 columns (first & last corner)")
+    mainGui.Add("Text", "x48 y166 w80 h18", "TabFirstX")
+    mainGui.Add("Edit", "x132 y162 w90 h22 vTabFirstX", TabFirstX)
+    mainGui.Add("Text", "x240 y166 w80 h18", "TabFirstY")
+    mainGui.Add("Edit", "x324 y162 w90 h22 vTabFirstY", TabFirstY)
+    mainGui.Add("Text", "x48 y198 w80 h18", "TabLastX")
+    mainGui.Add("Edit", "x132 y194 w90 h22 vTabLastX", TabLastX)
+    mainGui.Add("Text", "x240 y198 w80 h18", "TabLastY")
+    mainGui.Add("Edit", "x324 y194 w90 h22 vTabLastY", TabLastY)
+    mainGui.Add("Text", "x32 y238 w740 h18", "Tab 6-10 columns")
+    mainGui.Add("Text", "x48 y266 w90 h18", "Tab2ndFirstX")
+    mainGui.Add("Edit", "x144 y262 w90 h22 vTab2ndFirstX", Tab2ndFirstX)
+    mainGui.Add("Text", "x260 y266 w90 h18", "Tab2ndFirstY")
+    mainGui.Add("Edit", "x356 y262 w90 h22 vTab2ndFirstY", Tab2ndFirstY)
+    mainGui.Add("Text", "x48 y298 w90 h18", "Tab2ndLastX")
+    mainGui.Add("Edit", "x144 y294 w90 h22 vTab2ndLastX", Tab2ndLastX)
+    mainGui.Add("Text", "x260 y298 w90 h18", "Tab2ndLastY")
+    mainGui.Add("Edit", "x356 y294 w90 h22 vTab2ndLastY", Tab2ndLastY)
+    mainGui.Add("GroupBox", "x16 y356 w780 h160", "F9 / F11 / mines")
+    mainGui.Add("Text", "x32 y372 w360 h18", "F9: spam click at cursor (currency on cursor)")
+    mainGui.Add("Text", "x32 y394 w360 h18", "F11: hold Ctrl and click to move along path")
+    mainGui.Add("Text", "x32 y416 w740 h40", "Ctrl+D + RButton: auto detonate. mine_laying_time (ms):")
+    mainGui.Add("Edit", "x620 y420 w80 h22 vmine_laying_time", mine_laying_time)
+
+    tabCtrl.UseTab(5)
+    mainGui.Add("GroupBox", "x16 y120 w780 h210", "More: deprecated / Shift+V broadcast")
+    mainGui.Add("Text", "x32 y146 w720 h18", "Deprecated / rare use")
+    mainGui.Add("Text", "x32 y170 w720 h58", "Shift+V multi-channel (IME: caps English).`nCtrl+PageUp trade site (legacy).")
+    mainGui.Add("Text", "x32 y236 w720 h20", "Broadcast text:")
+    mainGui.SetFont("s9", "Segoe UI")
+    mainGui.Add("Edit", "x32 y260 w740 h54 vAnnounce", Announce)
+    mainGui.Add("GroupBox", "x16 y338 w780 h118", "AutoFlask (color / light sensitive)")
+    mainGui.Add("Text", "x32 y362 w720 h36", "Ctrl+Shift+F / Ctrl+Shift+L. Low-life flask list:")
+    mainGui.Add("Edit", "x32 y400 w200 h22 vlow_life_flask_list", low_life_flask_list)
+    mainGui.Add("GroupBox", "x16 y466 w780 h132", "Loot (Ctrl+A hold)")
+    mainGui.Add("Text", "x32 y490 w200 h18", "lootColor")
+    mainGui.Add("Edit", "x240 y486 w140 h22 vlootColor", lootColor)
+    mainGui.Add("Text", "x32 y518 w200 h18", "delay (ms)")
+    mainGui.Add("Edit", "x240 y514 w80 h22 vloot_dalay", loot_dalay)
+    mainGui.Add("Text", "x32 y544 w740 h36", "Pickup uses pixel color; speed limited.")
+
+    tabCtrl.UseTab()
+    mainGui.SetFont("bold cRed")
+    mainGui.Add("Text", "x14 y808 w820 h22", "Apply change saves settings.ini | Closing the window saves and exits.")
+    mainGui.SetFont("norm")
+    btnApply := mainGui.Add("Button", "x688 y836 w150 h34 Default", "Apply change")
+    btnApply.OnEvent("Click", ButtonApplyChange)
+
+    mainGui.OnEvent("Close", GuiClose)
+    mainGui.Show("w860 h880 Center")
 }
 
-;以下函數供gui中使用
+GuiClose(*){
+    SaveSettings()
+    ExitApp()
+}
 
-;ButtonApplyChange()函數名稱可被Apply change為名的Button所辨識，並在按下按鈕後呼叫執行。
-ButtonApplyChange(){
+GoToWebsite(*){
+    Run("https://github.com/bamd5alifes7/POE_Utilitybundles")
+}
+
+ButtonApplyChange(*){
+    global mainGui
     TurnOffAllHotkey()
-	;意思是儲存變數並持續顯示gui視窗
-    Gui, Submit, NoHide
+    ApplyGuiValues(mainGui.Submit(false))
+    SaveSettings()
     TurnOnAllHotkey()
-    MsgBox , 0, , Change applied, 1
+    MsgBox("Change applied", , "T1")
+}
+
+ApplyGuiValues(values){
+    global quick_flask_list, quick_flask_list_1, quickFlasksHotkey0, quickFlasksHotkey1
+    global AutoTime_attack_list, AutoTime_flask_list, keep_attack_list, AutoInterval
+    global quickEnterText0, quickEnterText1, quickEnterText2, quickEnterText3, quickEnterText4, quickEnterText5, quickEnterText7
+    global BagFirstX, BagFirstY, BagLastX, BagLastY, tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    global ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    global TabFirstX, TabFirstY, TabLastX, TabLastY, Tab2ndFirstX, Tab2ndFirstY, Tab2ndLastX, Tab2ndLastY
+    global mine_laying_time, Announce, low_life_flask_list, lootColor, loot_dalay
+
+    quick_flask_list := values.quick_flask_list
+    quick_flask_list_1 := values.quick_flask_list_1
+    quickFlasksHotkey0 := values.quickFlasksHotkey0
+    quickFlasksHotkey1 := values.quickFlasksHotkey1
+    AutoTime_attack_list := values.AutoTime_attack_list
+    AutoTime_flask_list := values.AutoTime_flask_list
+    keep_attack_list := values.keep_attack_list
+    AutoInterval := values.AutoInterval
+    quickEnterText0 := values.quickEnterText0
+    quickEnterText1 := values.quickEnterText1
+    quickEnterText2 := values.quickEnterText2
+    quickEnterText3 := values.quickEnterText3
+    quickEnterText4 := values.quickEnterText4
+    quickEnterText5 := values.quickEnterText5
+    quickEnterText7 := values.quickEnterText7
+    BagFirstX := values.BagFirstX
+    BagFirstY := values.BagFirstY
+    BagLastX := values.BagLastX
+    BagLastY := values.BagLastY
+    tradeFirstX := values.tradeFirstX
+    tradeFirstY := values.tradeFirstY
+    tradeLastX := values.tradeLastX
+    tradeLastY := values.tradeLastY
+    ScouringX := values.ScouringX
+    ScouringY := values.ScouringY
+    ItemX := values.ItemX
+    ItemY := values.ItemY
+    AlchemyX := values.AlchemyX
+    AlchemyY := values.AlchemyY
+    TabFirstX := values.TabFirstX
+    TabFirstY := values.TabFirstY
+    TabLastX := values.TabLastX
+    TabLastY := values.TabLastY
+    Tab2ndFirstX := values.Tab2ndFirstX
+    Tab2ndFirstY := values.Tab2ndFirstY
+    Tab2ndLastX := values.Tab2ndLastX
+    Tab2ndLastY := values.Tab2ndLastY
+    mine_laying_time := values.mine_laying_time
+    Announce := values.Announce
+    low_life_flask_list := values.low_life_flask_list
+    lootColor := values.lootColor
+    loot_dalay := values.loot_dalay
 }
 
 TurnOffAllHotkey(){
-    TurnOffHotkey(quickFlasksHotkey0)
-    TurnOffHotkey(quickFlasksHotkey1)
+    global quickFlasksHotkey0, quickFlasksHotkey1
+    TurnOffHotkey(quickFlasksHotkey0, "QuickFlaskLabel0")
+    TurnOffHotkey(quickFlasksHotkey1, "QuickFlaskLabel1")
 }
 
 TurnOnAllHotkey(){
+    global quickFlasksHotkey0, quickFlasksHotkey1
     TurnOnHotkey(quickFlasksHotkey0, "QuickFlaskLabel0")
     TurnOnHotkey(quickFlasksHotkey1, "QuickFlaskLabel1")
 }
 
-TurnOffHotkey(key){
-    if %key%{
-        Hotkey, %key%, Off
-    }
-    return
+TurnOffHotkey(key, label){
+    key := Trim(key "")
+    if !key
+        return
+    try Hotkey(key, Func(label), "Off")
 }
 
 TurnOnHotkey(key, label){
-    if key{
-        Hotkey, %key%, %label%, On
-    }
-    else{
-        ;Msgbox, %key%
-    }
-    return
+    key := Trim(key "")
+    if !key
+        return
+    try Hotkey(key, Func(label), "On")
 }

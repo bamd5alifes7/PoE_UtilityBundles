@@ -1,108 +1,137 @@
-﻿ReadSettings(){
+SettingsFilePath(){
+    return A_ScriptDir "\settings.ini"
+}
 
+ReadSettings(){
+    global quickFlasksHotkey0, quickFlasksHotkey1, quick_flask_list, quick_flask_list_1
+    global AutoTime_flask_list, AutoTime_attack_list, keep_attack_list, AutoInterval
+    global lootColor, loot_dalay, portalX, portalY
+    global low_life_X, low_life_Y, life_color, low_life_flask_list
+    global quickEnterText0, quickEnterText1, quickEnterText2, quickEnterText3
+    global quickEnterText4, quickEnterText5, quickEnterText6, quickEnterText7
+    global mine_laying_time, url
+    global BagFirstX, BagFirstY, BagLastX, BagLastY
+    global tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    global ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    global TabFirstX, TabFirstY, TabLastX, TabLastY
+    global Tab2ndFirstX, Tab2ndFirstY, Tab2ndLastX, Tab2ndLastY
+    global Announce
+    settingsFile := SettingsFilePath()
 
-    IniRead, quickFlasksHotkey0,  settings.ini, settings, quickFlasksHotkey0,  ^2
-    IniRead, quickFlasksHotkey1,  settings.ini, settings, quickFlasksHotkey1,  ^3
-    IniRead, quick_flask_list,    settings.ini, settings, quick_flask_list,    1-2-3-4-5
-    IniRead, quick_flask_list_1,  settings.ini, settings, quick_flask_list_1,  3-w	
-	IniRead, AutoTime_flask_list, settings.ini, settings, AutoTime_flask_list,  1
-	IniRead, AutoTime_attack_list, settings.ini, settings, AutoTime_attack_list,  w
-	IniRead, keep_attack_list,    settings.ini, settings, keep_attack_list,  RButton
-	IniRead, AutoInterval,        settings.ini, settings, AutoInterval,  4000
-    IniRead, lootColor,           settings.ini, settings, lootColor,           0x790062
-    IniRead, loot_dalay,          settings.ini, settings, loot_dalay,          400
-    IniRead, portalX,             settings.ini, settings, portalX,             2500
-    IniRead, portalY,             settings.ini, settings, portalY,             1100
-    IniRead, low_life_X,          settings.ini, settings, low_life_X,          169
-    IniRead, low_life_Y,          settings.ini, settings, low_life_Y,          923
-    IniRead, life_color,          settings.ini, settings, life_color,          0x180B8F    
-    IniRead, low_life_flask_list, settings.ini, settings, low_life_flask_list, 1
-    IniRead, quickEnterText0,     settings.ini, settings, quickEnterText0,     /global 168 한국어
-    IniRead, quickEnterText1,     settings.ini, settings, quickEnterText1,     /trade 615 한국어
-    IniRead, quickEnterText2,     settings.ini, settings, quickEnterText2,     /global 666 english
-    IniRead, quickEnterText3,     settings.ini, settings, quickEnterText3,     /hideout
-    IniRead, quickEnterText4,     settings.ini, settings, quickEnterText4,     /global 5587
-    IniRead, quickEnterText5,     settings.ini, settings, quickEnterText5,     %A_Space%
-    IniRead, quickEnterText6,     settings.ini, settings, quickEnterText6,     %A_Space%
-    IniRead, quickEnterText7,     settings.ini, settings, quickEnterText7,     /exit
-    IniRead, mine_laying_time,    settings.ini, settings, mine_laying_time,    300
-    ; IniRead, url,                 settings.ini, settings, url, http://www.pathofexile.com/trade/search/Betrayal
-    IniRead, url,                 settings.ini, settings, url, https://www.pathofexile.com/trade/search/Settlers
-    IniRead, BagFirstX,           settings.ini, settings, BagFirstX, 		   1694
-    IniRead, BagFirstY,           settings.ini, settings, BagFirstY, 		   781
-    IniRead, BagLastX,            settings.ini, settings, BagLastX, 		   2539
-    IniRead, BagLastY,            settings.ini, settings, BagLastY, 		   1137
-    IniRead, tradeFirstX,         settings.ini, settings, tradeFirstX, 		   412
-    IniRead, tradeFirstY,         settings.ini, settings, tradeFirstY, 		   269
-    IniRead, tradeLastX,          settings.ini, settings, tradeLastX, 		   1261
-    IniRead, tradeLastY,          settings.ini, settings, tradeLastY, 		   612
-    IniRead, ScouringX,           settings.ini, settings, ScouringX, 		   583
-    IniRead, ScouringY,           settings.ini, settings, ScouringY, 		   690
-    IniRead, ItemX,         	  settings.ini, settings, ItemX, 		       441
-    IniRead, ItemY,               settings.ini, settings, ItemY, 		       608
-    IniRead, AlchemyX,            settings.ini, settings, AlchemyX, 		   663
-    IniRead, AlchemyY,            settings.ini, settings, AlchemyY, 		   375
-    IniRead, TabFirstX,           settings.ini, settings, TabFirstX, 		   23
-    IniRead, TabFirstY,           settings.ini, settings, TabFirstY, 		   185
-    IniRead, TabLastX,            settings.ini, settings, TabLastX, 		   373
-    IniRead, TabLastY,            settings.ini, settings, TabLastY, 		   1022
-    IniRead, Tab2ndFirstX,        settings.ini, settings, Tab2ndFirstX, 	   374
-    IniRead, Tab2ndFirstY,        settings.ini, settings, Tab2ndFirstY, 	   178
-    IniRead, Tab2ndLastX,         settings.ini, settings, Tab2ndLastX, 		   724
-    IniRead, Tab2ndLastY,         settings.ini, settings, Tab2ndLastY, 		   1023
-    IniRead, Announce,            settings.ini, settings, Announce, 		   五軍 5場35D 怪量均萬 最高11053 84物免 88三大抗 可借混抗經驗裝 -3
-    return
+    quickFlasksHotkey0 := IniRead(settingsFile, "settings", "quickFlasksHotkey0", "^2")
+    quickFlasksHotkey1 := IniRead(settingsFile, "settings", "quickFlasksHotkey1", "^3")
+    quick_flask_list := IniRead(settingsFile, "settings", "quick_flask_list", "1-2-3-4-5")
+    quick_flask_list_1 := IniRead(settingsFile, "settings", "quick_flask_list_1", "3-w")
+    AutoTime_flask_list := IniRead(settingsFile, "settings", "AutoTime_flask_list", "1")
+    AutoTime_attack_list := IniRead(settingsFile, "settings", "AutoTime_attack_list", "w")
+    keep_attack_list := IniRead(settingsFile, "settings", "keep_attack_list", "RButton")
+    AutoInterval := IniRead(settingsFile, "settings", "AutoInterval", "4000")
+    lootColor := IniRead(settingsFile, "settings", "lootColor", "0x790062")
+    loot_dalay := IniRead(settingsFile, "settings", "loot_dalay", "400")
+    portalX := IniRead(settingsFile, "settings", "portalX", "2500")
+    portalY := IniRead(settingsFile, "settings", "portalY", "1100")
+    low_life_X := IniRead(settingsFile, "settings", "low_life_X", "169")
+    low_life_Y := IniRead(settingsFile, "settings", "low_life_Y", "923")
+    life_color := IniRead(settingsFile, "settings", "life_color", "0x180B8F")
+    low_life_flask_list := IniRead(settingsFile, "settings", "low_life_flask_list", "1")
+    quickEnterText0 := IniRead(settingsFile, "settings", "quickEnterText0", "/global 168")
+    quickEnterText1 := IniRead(settingsFile, "settings", "quickEnterText1", "/trade 615")
+    quickEnterText2 := IniRead(settingsFile, "settings", "quickEnterText2", "/global 666 english")
+    quickEnterText3 := IniRead(settingsFile, "settings", "quickEnterText3", "/hideout")
+    quickEnterText4 := IniRead(settingsFile, "settings", "quickEnterText4", "/global 5587")
+    quickEnterText5 := IniRead(settingsFile, "settings", "quickEnterText5", A_Space)
+    quickEnterText6 := IniRead(settingsFile, "settings", "quickEnterText6", A_Space)
+    quickEnterText7 := IniRead(settingsFile, "settings", "quickEnterText7", "/exit")
+    mine_laying_time := IniRead(settingsFile, "settings", "mine_laying_time", "300")
+    url := IniRead(settingsFile, "settings", "url", "https://www.pathofexile.com/trade/search/Settlers")
+    BagFirstX := IniRead(settingsFile, "settings", "BagFirstX", "1694")
+    BagFirstY := IniRead(settingsFile, "settings", "BagFirstY", "781")
+    BagLastX := IniRead(settingsFile, "settings", "BagLastX", "2539")
+    BagLastY := IniRead(settingsFile, "settings", "BagLastY", "1137")
+    tradeFirstX := IniRead(settingsFile, "settings", "tradeFirstX", "412")
+    tradeFirstY := IniRead(settingsFile, "settings", "tradeFirstY", "269")
+    tradeLastX := IniRead(settingsFile, "settings", "tradeLastX", "1261")
+    tradeLastY := IniRead(settingsFile, "settings", "tradeLastY", "612")
+    ScouringX := IniRead(settingsFile, "settings", "ScouringX", "583")
+    ScouringY := IniRead(settingsFile, "settings", "ScouringY", "690")
+    ItemX := IniRead(settingsFile, "settings", "ItemX", "441")
+    ItemY := IniRead(settingsFile, "settings", "ItemY", "608")
+    AlchemyX := IniRead(settingsFile, "settings", "AlchemyX", "663")
+    AlchemyY := IniRead(settingsFile, "settings", "AlchemyY", "375")
+    TabFirstX := IniRead(settingsFile, "settings", "TabFirstX", "23")
+    TabFirstY := IniRead(settingsFile, "settings", "TabFirstY", "185")
+    TabLastX := IniRead(settingsFile, "settings", "TabLastX", "373")
+    TabLastY := IniRead(settingsFile, "settings", "TabLastY", "1022")
+    Tab2ndFirstX := IniRead(settingsFile, "settings", "Tab2ndFirstX", "374")
+    Tab2ndFirstY := IniRead(settingsFile, "settings", "Tab2ndFirstY", "178")
+    Tab2ndLastX := IniRead(settingsFile, "settings", "Tab2ndLastX", "724")
+    Tab2ndLastY := IniRead(settingsFile, "settings", "Tab2ndLastY", "1023")
+    Announce := IniRead(settingsFile, "settings", "Announce", "")
 }
 
 SaveSettings(){
-    IniWrite, %quickFlasksHotkey0%,  settings.ini, settings, quickFlasksHotkey0
-    IniWrite, %quickFlasksHotkey1%,  settings.ini, settings, quickFlasksHotkey1
-    IniWrite, %quick_flask_list%,    settings.ini, settings, quick_flask_list
-    IniWrite, %quick_flask_list_1%,  settings.ini, settings, quick_flask_list_1
-	IniWrite, %AutoTime_flask_list%, settings.ini, settings, AutoTime_flask_list
-	IniWrite, %AutoTime_attack_list%, settings.ini, settings, AutoTime_attack_list
-	IniWrite, %keep_attack_list%,    settings.ini, settings, keep_attack_list
-	IniWrite, %AutoInterval%,        settings.ini, settings, AutoInterval
-    IniWrite, %lootColor%,           settings.ini, settings, lootColor
-    IniWrite, %loot_dalay%,          settings.ini, settings, loot_dalay
-    IniWrite, %portalX%,             settings.ini, settings, portalX
-    IniWrite, %portalY%,             settings.ini, settings, portalY
-    IniWrite, %low_life_X%,          settings.ini, settings, low_life_X
-    IniWrite, %low_life_Y%,          settings.ini, settings, low_life_Y
-    IniWrite, %life_color%,          settings.ini, settings, life_color
-    IniWrite, %low_life_flask_list%, settings.ini, settings, low_life_flask_list
-    IniWrite, %quickEnterText0%,     settings.ini, settings, quickEnterText0
-    IniWrite, %quickEnterText1%,     settings.ini, settings, quickEnterText1
-    IniWrite, %quickEnterText2%,     settings.ini, settings, quickEnterText2
-    IniWrite, %quickEnterText3%,     settings.ini, settings, quickEnterText3
-    IniWrite, %quickEnterText4%,     settings.ini, settings, quickEnterText4
-    IniWrite, %quickEnterText5%,     settings.ini, settings, quickEnterText5
-    IniWrite, %quickEnterText6%,     settings.ini, settings, quickEnterText6
-    IniWrite, %quickEnterText7%,     settings.ini, settings, quickEnterText7
-    IniWrite, %mine_laying_time%,    settings.ini, settings, mine_laying_time
-    IniWrite, %url%,                 settings.ini, settings, url
-	IniWrite, %BagFirstX%,           settings.ini, settings, BagFirstX
-	IniWrite, %BagFirstY%,           settings.ini, settings, BagFirstY
-	IniWrite, %BagLastX%,            settings.ini, settings, BagLastX
-	IniWrite, %BagLastY%,            settings.ini, settings, BagLastY
-    IniWrite, %tradeFirstX%,         settings.ini, settings, tradeFirstX
-	IniWrite, %tradeFirstY%,         settings.ini, settings, tradeFirstY
-	IniWrite, %tradeLastX%,          settings.ini, settings, tradeLastX
-	IniWrite, %tradeLastY%,          settings.ini, settings, tradeLastY
-	IniWrite, %ScouringX%,      	 settings.ini, settings, ScouringX
-	IniWrite, %ScouringY%,           settings.ini, settings, ScouringY
-	IniWrite, %ItemX%,        		 settings.ini, settings, ItemX
-	IniWrite, %ItemY%,         		 settings.ini, settings, ItemY
-	IniWrite, %AlchemyX%,        	 settings.ini, settings, AlchemyX
-	IniWrite, %AlchemyY%,         	 settings.ini, settings, AlchemyY
-	IniWrite, %TabFirstX%,         	 settings.ini, settings, TabFirstX
-	IniWrite, %TabFirstY%,         	 settings.ini, settings, TabFirstY
-	IniWrite, %TabLastX%,         	 settings.ini, settings, TabLastX
-	IniWrite, %TabLastY%,         	 settings.ini, settings, TabLastY
-	IniWrite, %Tab2ndFirstX%,        settings.ini, settings, Tab2ndFirstX
-	IniWrite, %Tab2ndFirstY%,        settings.ini, settings, Tab2ndFirstY
-	IniWrite, %Tab2ndLastX%,         settings.ini, settings, Tab2ndLastX
-	IniWrite, %Tab2ndLastY%,         settings.ini, settings, Tab2ndLastY
-	IniWrite, %Announce%,            settings.ini, settings, Announce	
-	return
+    global quickFlasksHotkey0, quickFlasksHotkey1, quick_flask_list, quick_flask_list_1
+    global AutoTime_flask_list, AutoTime_attack_list, keep_attack_list, AutoInterval
+    global lootColor, loot_dalay, portalX, portalY
+    global low_life_X, low_life_Y, life_color, low_life_flask_list
+    global quickEnterText0, quickEnterText1, quickEnterText2, quickEnterText3
+    global quickEnterText4, quickEnterText5, quickEnterText6, quickEnterText7
+    global mine_laying_time, url
+    global BagFirstX, BagFirstY, BagLastX, BagLastY
+    global tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    global ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    global TabFirstX, TabFirstY, TabLastX, TabLastY
+    global Tab2ndFirstX, Tab2ndFirstY, Tab2ndLastX, Tab2ndLastY
+    global Announce
+    settingsFile := SettingsFilePath()
+
+    IniWrite(quickFlasksHotkey0, settingsFile, "settings", "quickFlasksHotkey0")
+    IniWrite(quickFlasksHotkey1, settingsFile, "settings", "quickFlasksHotkey1")
+    IniWrite(quick_flask_list, settingsFile, "settings", "quick_flask_list")
+    IniWrite(quick_flask_list_1, settingsFile, "settings", "quick_flask_list_1")
+    IniWrite(AutoTime_flask_list, settingsFile, "settings", "AutoTime_flask_list")
+    IniWrite(AutoTime_attack_list, settingsFile, "settings", "AutoTime_attack_list")
+    IniWrite(keep_attack_list, settingsFile, "settings", "keep_attack_list")
+    IniWrite(AutoInterval, settingsFile, "settings", "AutoInterval")
+    IniWrite(lootColor, settingsFile, "settings", "lootColor")
+    IniWrite(loot_dalay, settingsFile, "settings", "loot_dalay")
+    IniWrite(portalX, settingsFile, "settings", "portalX")
+    IniWrite(portalY, settingsFile, "settings", "portalY")
+    IniWrite(low_life_X, settingsFile, "settings", "low_life_X")
+    IniWrite(low_life_Y, settingsFile, "settings", "low_life_Y")
+    IniWrite(life_color, settingsFile, "settings", "life_color")
+    IniWrite(low_life_flask_list, settingsFile, "settings", "low_life_flask_list")
+    IniWrite(quickEnterText0, settingsFile, "settings", "quickEnterText0")
+    IniWrite(quickEnterText1, settingsFile, "settings", "quickEnterText1")
+    IniWrite(quickEnterText2, settingsFile, "settings", "quickEnterText2")
+    IniWrite(quickEnterText3, settingsFile, "settings", "quickEnterText3")
+    IniWrite(quickEnterText4, settingsFile, "settings", "quickEnterText4")
+    IniWrite(quickEnterText5, settingsFile, "settings", "quickEnterText5")
+    IniWrite(quickEnterText6, settingsFile, "settings", "quickEnterText6")
+    IniWrite(quickEnterText7, settingsFile, "settings", "quickEnterText7")
+    IniWrite(mine_laying_time, settingsFile, "settings", "mine_laying_time")
+    IniWrite(url, settingsFile, "settings", "url")
+    IniWrite(BagFirstX, settingsFile, "settings", "BagFirstX")
+    IniWrite(BagFirstY, settingsFile, "settings", "BagFirstY")
+    IniWrite(BagLastX, settingsFile, "settings", "BagLastX")
+    IniWrite(BagLastY, settingsFile, "settings", "BagLastY")
+    IniWrite(tradeFirstX, settingsFile, "settings", "tradeFirstX")
+    IniWrite(tradeFirstY, settingsFile, "settings", "tradeFirstY")
+    IniWrite(tradeLastX, settingsFile, "settings", "tradeLastX")
+    IniWrite(tradeLastY, settingsFile, "settings", "tradeLastY")
+    IniWrite(ScouringX, settingsFile, "settings", "ScouringX")
+    IniWrite(ScouringY, settingsFile, "settings", "ScouringY")
+    IniWrite(ItemX, settingsFile, "settings", "ItemX")
+    IniWrite(ItemY, settingsFile, "settings", "ItemY")
+    IniWrite(AlchemyX, settingsFile, "settings", "AlchemyX")
+    IniWrite(AlchemyY, settingsFile, "settings", "AlchemyY")
+    IniWrite(TabFirstX, settingsFile, "settings", "TabFirstX")
+    IniWrite(TabFirstY, settingsFile, "settings", "TabFirstY")
+    IniWrite(TabLastX, settingsFile, "settings", "TabLastX")
+    IniWrite(TabLastY, settingsFile, "settings", "TabLastY")
+    IniWrite(Tab2ndFirstX, settingsFile, "settings", "Tab2ndFirstX")
+    IniWrite(Tab2ndFirstY, settingsFile, "settings", "Tab2ndFirstY")
+    IniWrite(Tab2ndLastX, settingsFile, "settings", "Tab2ndLastX")
+    IniWrite(Tab2ndLastY, settingsFile, "settings", "Tab2ndLastY")
+    IniWrite(Announce, settingsFile, "settings", "Announce")
 }
