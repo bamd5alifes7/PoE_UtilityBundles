@@ -7,16 +7,12 @@
 **PoE_UtilityBundles**
 是一份AHK腳本，提供POE的快捷鍵包括：**一鍵喝水、定時喝水、切換頻道、移動物品、點鏈結石、自動引爆地雷、自動喝水、自動撿裝**等等。
 
-會再根據我個人的實際需求，持續擴充。
-
-
 ## 免責聲明 
 
-此腳本的許多功能**絕對違反**遊戲規章，使用此程式者請自行承擔所有可能後果和風險>>>[可以參考這裡](https://www.ptt.cc/bbs/PathofExile/M.1536799446.A.BB1.html)
+此腳本的許多功能**絕對違反**遊戲規章，使用者請自行承擔所有可能後果和風險>>>[可以參考這裡](https://www.ptt.cc/bbs/PathofExile/M.1536799446.A.BB1.html)
 
 > (原作者說他還沒被封，而我也未曾因這個程式而被封。)
-> 
-> (原因是本腳本不會讀取/修改記憶體內容。僅模擬鍵鼠動作的話，一是官方願意容許。二是較難偵測。)
+> (原因是此程式並不會讀取/修改記憶體內容。僅模擬鍵鼠動作的話，一是官方容許，二是較難偵測)
 
 ---
 
@@ -30,40 +26,34 @@
 
 ## 如何使用
 
-直接使用：
+兩種方式，直接使用 exe 或自行下載語言包後執行程式碼
 
-1. 下載。
+一.直接使用 exe ：
+
+1. 點選頁面右方 Releases 下的超連結。下載 POE_UtilityBundles.exe。
+
+2. 左鍵雙擊`POE_UtilityBundles.exe`。確認簡介訊息就可開始使用，無須關閉應用程式畫面。
+
+P.S.如果你是首次使用，而跳出 Windows Defender SmartScreen 無法辨識的通知，請點選「其他資訊」後，「仍要執行」來運行此程式。
+
+
+二.以原始碼方式執行：
+
+1. 下載並安裝 [AutoHotKey](https://www.autohotkey.com/) 。如果閃退或沒反應，請安裝我編寫時的版本號 `AutoHotkey_2.0.22`。
+
+2. 點選此頁面右方 Releases 下的超連結。點選並下載 Source code(zip)。
+
+3. 用 Notepad++ 之類的文字編輯器打開 src 資料夾下的程式碼，讀到你覺得可安心使用。(恐懼是來自於未知)
    
-   (1)點選此頁面上方的'Clone`按鈕再點選'Download ZIP'。
-   
-   (2)點選此頁面右中Releases下的超連結。再點選POE_UtilityBundles.exe或Source code(zip)。
-
-2. 左鍵雙擊`POE_UtilityBundles.exe`，閱讀或跳過簡介後就可開始使用，無須關閉Gui畫面。
-
-P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨識的通知，請點選「其他資訊」後，「仍要執行」來運行此程式。
-
-
-或者以原始碼方式執行：
-
-1. 下載並安裝[AutoHotKey](https://www.autohotkey.com/) 。如果會閃退或沒反應，試試看改用我編寫時的版本號 `AutoHotkey_1.1.34.02`。
-
-2. 下載。
-   
-   (1)點選此頁面上方的'Clone`按鈕再點選'Download ZIP'。
-   
-   (2)點選此頁面右中Releases下的超連結。再點選Source code(zip)。
-
-3. 用Notepad++之類的開發工具打開源代碼，讀到你覺得安心。(恐懼是來自於未知)
-   
-4. 左鍵雙擊 `POE_UtilityBundles.ahk`，閱讀或跳過簡介後就可開始使用，無須關閉Gui畫面。
+4. 左鍵雙擊 `POE_UtilityBundles.ahk`，確認簡介訊息就可開始使用，無須關閉應用程式畫面。
 
 
 ## 如何關閉
 
 
-1.在Gui介面中，點選右上角的X符號。就關閉了POE_UtilityBundles。
+1. 在應用程式畫面中，點選右上角的 X 符號。就關閉了POE_UtilityBundles。
 
-2.或可在Windows右下的狀態列中找到POE_UtilityBundles的綠底白字的H字icon，手動關閉。
+2. 或可在 Windows 右下的狀態列中找到 POE_UtilityBundles 的綠色 icon ，右鍵手動關閉。
 
 ## 介面示意 
 ![image](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/demo/%E4%BB%8B%E9%9D%A2.png)
@@ -73,11 +63,13 @@ P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨
 
 打開程式，按下確定後即開始使用。
 
-按住F12來停止所有運作中的功能。若按住數秒後仍卡死，請使用Ctrl+Alt+Del叫出工作管理員，再手動停止工作。
+注意：
 
-預設按鍵設置皆為2560x1080視窗大小下的情況。若你的視窗並非此設定，請使用SHIFT+D查詢各項座標位置，並設定功能中的座標設定值。
+F12 是所有功能的停止鍵。若按住數秒後仍卡死，請使用 Ctrl+Alt+Del 叫出工作管理員，再手動停止程式。
 
-使用中可最小化但不可關閉GUI介面。
+預設各種參數皆為 2560x1080 視窗大小下的情況。若你的電腦視窗並非此設定，請使用 SHIFT+D 查詢各項座標位置，手動設定功能中的座標設定值。
+
+使用中可最小化但不可關閉應用程式畫面介面。
 
 [XButton2]前滑鼠側鍵:單下按鍵，使用藥劑列表中的藥劑。
 
@@ -123,7 +115,7 @@ P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨
 
 [Shift+V]在多個交易頻道中廣播，使用時輸入法需切成大寫英文。但在國際服的用處不大。
 
-[Ctrl+PageUp]一鍵查價。但Awakened PoE Trade(國際服)或rchin-poe-trade(hotcool)更好用，已荒廢
+[Ctrl+PageUp]一鍵查價。但 Awakened PoE Trade(國際服)或 rchin-poe-trade(hotcool) 更好用，已荒廢
 
 [Ctrl+Shift+F]根據滑鼠游標位置，設置自動喝水所需要的血量座標與顏色。
 
@@ -135,5 +127,4 @@ P.S.如果你是第一次使用，而跳出Windows Defender SmartScreen無法辨
 ### 進階設定 
 
 進階的AHK使用者，可以在`functions_int.ahk`中做更細節的調整，也可以看情況增加自己喜歡的功能。
-
 
