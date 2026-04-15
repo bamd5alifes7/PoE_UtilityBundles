@@ -5,11 +5,9 @@
 
 ;將執行方式改為系統管理員
 RunAsAdmin()
-;中文簡介
-MsgBox("English user can skip this Chinese introduction, it is not necessary.`r`n`r`n中文按鍵簡介`r`n`r`n按下確定後即開始使用。`r`n按住F12來停止所有運作中的功能。若按住數秒後仍卡死，請使用Ctrl+Alt+Del叫出工作管理員，再手動停止工作。`r`n以下按鍵設置皆為2560x1080視窗大小下的情況。若你的視窗並非此設定，請使用SHIFT+D查詢，並設定功能中的座標設定值。`r`n使用中可最小化但不可關閉GUI介面`r`n`r`n[XButton2]前滑鼠側鍵:單下按鍵，使用藥劑列表中的藥劑。`r`n[Ctrl+L]開啟或關閉會啟用熱鍵的一鍵喝水模式。當開啟時，會將按下熱鍵的動作改為輸出列表中的按鍵。`r`n[XButton1]後滑鼠側鍵，會按住右鍵並定時施放列表中的技能。`r`n[MButton]滑鼠滾輪:按下後，開啟定時動作。包含持續攻擊、定時喝水及定時攻擊。預設為四秒一輪。`r`n[F3]快速輸入，預設為韓國世界頻168。`r`n[Ctrl+F3]快速輸入，預設為韓國交易頻615。`r`n[Ctrl+F4]快速輸入，預設為英文世界頻666。`r`n[F5]快速輸入，預設為進入藏身處。`r`n[F6]快速輸入，預設為世界頻5587。`r`n[Ctrl+F6]快速輸入，預設為無。`r`n[Ctrl+~]回到選角介面。`r`n[Shift+D]得到物品顏色及座標位置。`r`n[F2]在開啟背包的情況下，將背包裡的東西一一點選，例如丟進倉庫。`r`n[Shift+F2]迅速清點交易欄`r`n[F4]按下後，針對物品座標使用重鑄石及點金石，預設為通貨倉庫頁中的物品。`r`n[F9]針對右鍵已拾取的通貨例如鏈結石，連續點擊游標座標上的物品，F12為停止鍵。`r`n[F10]單下點擊開始快速移動倉庫左邊第一直欄到第五直欄的物件。預設是無資料夾的倉庫頁。`r`n[Ctrl+F10]單下點擊開始快速移動倉庫左邊第六直欄到第十直欄的物件。預設是無資料夾的倉庫頁。`r`n[F11]按住按鈕後移動滑鼠游標，來快速移動游標經過的物件。。`r`n[Ctrl+D]開啟/關閉自動引爆地雷`r`n[F10]RButton滑鼠右鍵，在開啟自動引爆地雷的情況下，使用右鍵技能及引爆地雷`r`n[Shift+V]在多個交易頻道中廣播，使用時輸入法需切成大寫英文。但在國際服的用處不大。`r`n[Ctrl+PageUp]一鍵查價。但Awakened PoE Trade(國際服)或rchin-poe-trade(hotcool)更好用，已荒廢`r`n[Ctrl+Shift+F]根據滑鼠游標位置，設置自動喝水所需要的血量座標與顏色。`r`n[Ctrl+Shift+L]開啟/關閉自動喝水。偵測指定座標的顏色，若非指定色使用藥劑。但當光線不同時會有誤差。所以用處不大。`r`n[Ctrl+a]持續按壓時時自動撿拾，需搭配指定顏色的物品篩選器。但因拾取速度無法太快，用處不大。`r`n`r`n原作者：heyfey`r`n修訂者：bamd5alifes7")
+ShowIntroduction()
 
 #Include functions_int.ahk
-#include SearchItem.ahk
 #Include gui.ahk
 #Include rw_settings.ahk
 
@@ -76,8 +74,7 @@ auto_detonate_active := false
 
 ;定時引爆地雷的延遲設定
 
-; Search item url 
-;一鍵查價的網址設定，但Awakened PoE Trade(國際服)或rchin-poe-trade(hotcool)更好用，已荒廢
+; Search item integration was removed.
 
 ;自動多頻道廣播的內容設定
 AnnounceChannel := []
@@ -106,13 +103,13 @@ AnnounceChannel.Push(["3","4","5","6","7","8","9","10","820","821","822","823","
 
 ;用於QuickScouringAndAlchemy的座標
 
-;用於QuickFastGuadmoving的倉庫頁座標
+;用於 Stash 1-5 搬移功能的倉庫頁座標
 ;TabFirst是指倉庫頁最左上邊緣的尖角
 ;The sharp corner of the upper left edge of tab
 ;TabLast是指倉庫頁第五欄最右下邊緣的尖角
 ;The sharp corner at the bottom right edge of the fifth column of the tab
 
-;用於QuickFast2ndGuadmoving的倉庫頁座標
+;用於 Stash 6-10 搬移功能的倉庫頁座標
 ;Tab2ndFirst是指倉庫頁第六欄最左上邊緣的尖角
 ;The sharp corner of the upper left edge of the sixth column of the tab
 ;Tab2ndFirst是指倉庫頁第十欄最右下邊緣的尖角
@@ -124,123 +121,191 @@ AnnounceChannel.Push(["3","4","5","6","7","8","9","10","820","821","822","823","
 
 ReadSettings()
 
-;此段落須放置在RunGUI()之前，因TurnOffHotkey會用到
-;當按下按鍵quickFlasksHotkey0時，改成執行QuickFlaskLabel0動作，該動作檢查quick_flask_active是否開啟。
-;若開啟則執行QuickFlask函數，也就是快速使用quick_flask_list的藥水
-;提供兩種不同版本
-
-;此功能可能壞掉了，很奇怪，變成%quickFlasksHotkey0%中的按鍵卡死
-Hotkey(quickFlasksHotkey0, QuickFlaskLabel0)
-Hotkey(quickFlasksHotkey1, QuickFlaskLabel1)
+TurnOnAllHotkey()
 
 RunGUI()
 
 ;===============================================================================
 
-;注意，以下按鍵設置皆為2560x1080視窗大小下的情況。若你的視窗並非此設定，請使用SHIFT+D查詢，並設定功能中的座標設定值。
-;The following button settings are all based on the 2560x1080 window size. If your window does not have this setting, please use SHIFT+D to query and set the coordinate settings in the function.
+ShowIntroduction(){
+    introText := "
+    (
+    English user can skip this introduction.
 
-;按住F12來停止所有運作中的功能。若按住數秒後仍卡死，請使用Ctrl+Alt+Del叫出工作管理員，再手動停止工作。
-;Press and hold F12 to stop all running functions. If it is still stuck after holding it down for a few seconds, please use Ctrl+Alt+Del to call out the Task Manager, and then stop the work manually.
+    中文按鍵簡介
 
-;同一行如果要有程式又想要有註解，分號後需要有空格鍵，不然會算是文法錯誤。
+    按下確定後即開始使用。
+    按住 F12 來停止所有運作中的功能。若按住數秒後仍卡死，請使用 Ctrl+Alt+Del 叫出工作管理員，再手動停止工作。
+    以下按鍵設置皆為 2560x1080 視窗大小下的情況。若你的視窗並非此設定，請使用 Shift+D 查詢，並設定功能中的座標設定值。
+    使用中可最小化但不可關閉 GUI 介面。
 
+    [XButton2] 前滑鼠側鍵：單下按鍵，使用藥劑列表中的藥劑。
+    [Ctrl+L] 開啟或關閉會啟用熱鍵的一鍵喝水模式。
+    [XButton1] 後滑鼠側鍵：按住右鍵並定時施放列表中的技能。
+    [MButton] 滑鼠滾輪：開啟定時動作。包含持續攻擊、定時喝水及定時攻擊。
+    [F3] / [Ctrl+F3] / [Ctrl+F4] / [F5] / [F6] / [Ctrl+F6]：快速輸入。
+    [Ctrl+`] 回到選角介面。
+    [Shift+D] 得到物品顏色及座標位置。
+    [F7] 將目前游標座標存到指定欄位。
+    [F2] 快速移動背包物品。
+    [Shift+F2] 迅速清點交易欄。
+    [F4] 針對物品座標使用重鑄石及點金石。
+    [F9] 對已拾取在手上的通貨連續點擊游標座標上的物品。
+    [F10] / [Ctrl+F10] / [Shift+F10]：快速移動倉庫欄位物件。
+    [F11] 按住按鈕後移動滑鼠游標，快速移動游標經過的物件。
+    [Ctrl+F7] 對背包指定皮革腰帶自動重鑄 + 機會直到傳奇。
+    [Ctrl+F8] 從牌組座標開卡，丟到背包第一格後 Ctrl 點回倉庫。
+    [Ctrl+Shift+F8] 將背包中的命運卡依序投入交易欄。
+    [Ctrl+D] 開啟 / 關閉自動引爆地雷。
+    [Shift+V] 在多個交易頻道中廣播。
+    [Ctrl+Shift+F] 設置自動喝水所需要的血量座標與顏色。
+    [Ctrl+Shift+L] 開啟 / 關閉自動喝水。
+    [Ctrl+A] 持續按壓時自動撿拾，需搭配指定顏色的物品篩選器。
 
-~XButton2::QuickFlask(quick_flask_list)    
-; Mouse front side button: Click to use the flask in the flask list. 
-; 前滑鼠側鍵:單下按鍵，使用藥劑列表中的藥劑。
+    原作者：heyfey
+    修訂者：bamd5alifes7
+    )"
 
-~^l::Activate_QuickFlask()  
-; Ctrl+L: When enabled`, changes hotkey actions to keys in the output list.               
-; Ctrl+L: 開啟或關閉會啟用熱鍵的一鍵喝水模式。當開啟時，會將按下熱鍵的動作改為輸出列表中的按鍵。
-
-~XButton1::Autoattack(AutoTime_attack_list) 
-; Mouse back side button: Click, Will hold down the right mouse button and press the keys in the list periodically.
-; 後滑鼠側鍵，會按住右鍵並定時施放列表中的技能。
-
-
-~MButton::AutoTimeFlask(AutoTime_flask_list, AutoTime_attack_list, keep_attack_list, AutoInterval)  
-; MButton:Click, Will Hold down keep_attack_list and press the keys in the AutoTime_flask_list and AutoTime_attack_list periodically.
-; 滑鼠滾輪:按下後，開啟定時動作。包含持續攻擊、定時喝水及定時攻擊。預設為四秒一輪。
-
-
-~F3::QuickEnter(quickEnterText0)           ; F3: 快速輸入，預設為韓國世界頻168。
-~^F3::QuickEnter(quickEnterText1)          ; Ctrl+F3: 快速輸入，預設為韓國交易頻615。
-~^F4::QuickEnter(quickEnterText2)          ; Ctrl+F4: 快速輸入，預設為英文世界頻666。
-~F5::QuickEnter(quickEnterText3)           ; F5: 快速輸入，預設為進入藏身處。
-~F6::QuickEnter(quickEnterText4)           ; F6: 快速輸入，預設為世界頻5587。
-~^F6::QuickEnter(quickEnterText5)          ; Ctrl+F6: 快速輸入，預設為無。
-;F8                                        ; F8: 被系統預設為遊戲截圖。
-~^`::QuickEnter(quickEnterText7)           ; Ctrl+~: Exit to char selection. 回到選角介面。
-
-~+d::CheckMousePos()                       ; Shift+D: Get mouse position and color. 得到物品顏色及座標位置。
-
-
-~F2::QuickBagmoving(BagFirstX,BagFirstY,BagLastX,BagLastY)     
-; F2:Quick moving item from Quick moving item from inventory
-; F2:在開啟背包的情況下，將背包裡的東西一一點選，例如丟進倉庫。
-
-~+F2::Quicktradescanning(tradeFirstX,tradeFirstY,tradeLastX,tradeLastY)                 
-; Shift+F2:Quick scanning item from trade, F12 to end. 
-; 迅速清點交易，F12為停止鍵。
-
-
-~F4::QuickScouringAndAlchemy(ScouringX,ScouringY,ItemX,ItemY,AlchemyX,AlchemyY)
-; F4: After pressing, use Orb of Scouring and Orb of Alchemy for the item coordinates. The default is item in currency tab. 
-; 按下後，針對物品座標使用重鑄石及點金石，預設為通貨倉庫頁中的物品。
-
-~F9::QuickJewellerandFusing()              
-; F9: For the currency that has been picked up by right-clicking, such as Orb of Fusing, continuously click on the item at the cursor coordinates. 
-; 針對右鍵已拾取的通貨例如鏈結石，連續點擊游標座標上的物品，F12為停止鍵。
-
-~F10::QuickFastGuadmoving(TabFirstX,TabFirstY,TabLastX,TabLastY)                
-; F10: Click to move objects in the first to fifth columns on the left side of the tab. The default is tab without folders. 
-; 單下點擊開始快速移動倉庫左邊第一直欄到第五直欄的物件。預設是無資料夾的倉庫頁。
-
-
-~^F10::QuickFast2ndGuadmoving(Tab2ndFirstX,Tab2ndFirstY,Tab2ndLastX,Tab2ndLastY)            
-; Ctrl+F10: Click to move objects in the sixth to tenth columns on the left side of the tab. The default is tab without folders. 
-; 單下點擊開始快速移動倉庫左邊第六直欄到第十直欄的物件。預設是無資料夾的倉庫頁。
-
-~F11::Quickmoving()                        
-; F11: Hold the button and move the mouse cursor to quickly move the object the cursor passes. 
-; 按住按鈕後移動滑鼠游標，來快速移動游標經過的物件。。
-
-~^d::Activate_AutoDetonate()               
-; Ctrl+D: Turn on/off automation detonate mines.
-; 開啟/關閉自動引爆地雷
-
-~RButton::AutoDetonate()                   
-; RButton (mouse Right-click): When automation detonate mines is turned on, use right-click skills and detonate mines.
-; 滑鼠右鍵，在開啟自動引爆地雷的情況下，使用右鍵技能及引爆地雷
-
-~+v::Announcement()                        
-; Shift+V: Broadcast in multiple trading channels in turn. When using it, the input method needs to be in uppercase English. But it is of little use in international servers.
-; 在多個交易頻道中廣播，使用時輸入法需切成大寫英文。但在國際服的用處不大。
-; 若用其他使用者身分執行PoE，注意需使用預設輸入法(系統開機時自然顯示的輸入法)，此時若中英文之間無法透過shift來切換，可用ctrl+空白鍵達到切換效果。
-
-~^PgUp::QuickSearchItem()                  
-; Ctrl+PageUp: Click to check the price on the official website. But Awakened PoE Trade (international server) or rchin-poe-trade (hotcool) are more useful, so this one has been abandoned. 
-;一鍵查價。但Awakened PoE Trade(國際服)或rchin-poe-trade(hotcool)更好用，已荒廢
-
-
-~^+F::Set_Autoflask()					   
-; Ctrl+Shift+F: According to the mouse cursor position, set the blood volume coordinates and color required to Autoflask.
-; Ctrl+Shift+F: 根據滑鼠游標位置，設置自動喝水所需要的血量座標與顏色。
-
-
-~^+l::Activate_AutoFlask()                 
-; Ctrl+Shift+L: Switch to use flask automatically.Detect the color of the specified coordinates. If it is not the specified color, use potion. But there will be errors when the light is different. So it's not very useful.
-; 開啟/關閉自動喝水。偵測指定座標的顏色，若非指定色使用藥劑。但當光線不同時會有誤差。所以用處不大。
-
-~^a::LootAll()                             
-; Ctrl+a: Hold to keep looting. Requires an item filter of specified color. But the pickup speed cannot be too fast, so it is not very useful.
-; 持續按壓時時自動撿拾，需搭配指定顏色的物品篩選器。但因拾取速度無法太快，用處不大。
-
-
-
+    MsgBox(introText)
+}
 
 ;以下段落不能放在RunGUI()之前，會導致GUI無法顯示
+RunQuickFlaskPrimaryHotkey(*) {
+    global quick_flask_list
+    QuickFlask(quick_flask_list)
+}
+
+RunAutoattackHotkey(*) {
+    global AutoTime_attack_list
+    Autoattack(AutoTime_attack_list)
+}
+
+RunAutoTimeFlaskHotkey(*) {
+    global AutoTime_flask_list, AutoTime_attack_list, keep_attack_list, AutoInterval
+    AutoTimeFlask(AutoTime_flask_list, AutoTime_attack_list, keep_attack_list, AutoInterval)
+}
+
+RunQuickEnter0Hotkey(*) {
+    global quickEnterText0
+    QuickEnter(quickEnterText0)
+}
+
+RunQuickEnter1Hotkey(*) {
+    global quickEnterText1
+    QuickEnter(quickEnterText1)
+}
+
+RunQuickEnter2Hotkey(*) {
+    global quickEnterText2
+    QuickEnter(quickEnterText2)
+}
+
+RunQuickEnter3Hotkey(*) {
+    global quickEnterText3
+    QuickEnter(quickEnterText3)
+}
+
+RunQuickEnter4Hotkey(*) {
+    global quickEnterText4
+    QuickEnter(quickEnterText4)
+}
+
+RunQuickEnter5Hotkey(*) {
+    global quickEnterText5
+    QuickEnter(quickEnterText5)
+}
+
+RunQuickEnter7Hotkey(*) {
+    global quickEnterText7
+    QuickEnter(quickEnterText7)
+}
+
+RunQuickBagmovingHotkey(*) {
+    global BagFirstX, BagFirstY, BagLastX, BagLastY
+    QuickBagmoving(BagFirstX, BagFirstY, BagLastX, BagLastY)
+}
+
+RunQuickTradeScanningHotkey(*) {
+    global tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    Quicktradescanning(tradeFirstX, tradeFirstY, tradeLastX, tradeLastY)
+}
+
+RunQuickScouringAlchemyHotkey(*) {
+    global ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    QuickScouringAndAlchemy(ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY)
+}
+
+RunQuickFastGuardHotkey(*) {
+    global stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY
+    MoveStashColumns1To5(stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY)
+}
+
+RunQuickFast2ndGuardHotkey(*) {
+    global stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY
+    MoveStashColumns6To10(stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY)
+}
+
+RunQuickFast3rdGuardHotkey(*) {
+    global stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY
+    MoveStashColumns11To12(stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY)
+}
+
+RunActivateQuickFlaskHotkey(*) {
+    Activate_QuickFlask()
+}
+
+RunCheckMousePosHotkey(*) {
+    CheckMousePos()
+}
+
+RunSaveCoordinatesHotkey(*) {
+    SaveCoordinatesTool()
+}
+
+RunQuickJewellerFusingHotkey(*) {
+    QuickJewellerandFusing()
+}
+
+RunQuickmovingHotkey(*) {
+    Quickmoving()
+}
+
+RunQuickChanceToUniqueHotkey(*) {
+    QuickChanceToUnique()
+}
+
+RunQuickOpenDeckHotkey(*) {
+    QuickOpenDeck()
+}
+
+RunQuickTradeCardsHotkey(*) {
+    QuickTradeCards()
+}
+
+RunActivateAutoDetonateHotkey(*) {
+    Activate_AutoDetonate()
+}
+
+RunAutoDetonateTriggerHotkey(*) {
+    AutoDetonate()
+}
+
+RunAnnouncementHotkey(*) {
+    Announcement()
+}
+
+RunSetAutoflaskHotkey(*) {
+    Set_Autoflask()
+}
+
+RunActivateAutoflaskHotkey(*) {
+    Activate_AutoFlask()
+}
+
+RunLootAllHotkey(*) {
+    LootAll()
+}
+
 QuickFlaskLabel0(*) {
     global quick_flask_active, quick_flask_list, quickFlasksHotkey0
     if quick_flask_active {
@@ -259,6 +324,57 @@ QuickFlaskLabel1(*) {
     }
 }
 
+ApplyConfiguredHotkeys(action) {
+    global hotkeyQuickFlaskPrimary, hotkeyToggleQuickFlask, hotkeyAutoattack, hotkeyAutoTimeFlask
+    global hotkeyQuickEnter0, hotkeyQuickEnter1, hotkeyQuickEnter2, hotkeyQuickEnter3, hotkeyQuickEnter4, hotkeyQuickEnter5, hotkeyQuickEnter7
+    global hotkeyCheckMousePos, hotkeySaveCoordinates, hotkeyQuickBagmoving, hotkeyQuickTradeScanning
+    global hotkeyQuickScouringAlchemy, hotkeyQuickJewellerFusing, hotkeyQuickFastGuard, hotkeyQuickFast2ndGuard, hotkeyQuickFast3rdGuard
+    global hotkeyQuickmoving, hotkeyQuickChanceToUnique, hotkeyQuickOpenDeck, hotkeyQuickTradeCards
+    global hotkeyActivateAutoDetonate, hotkeyAutoDetonateTrigger, hotkeyAnnouncement
+    global hotkeySetAutoflask, hotkeyActivateAutoflask, hotkeyLootAll
+    global quickFlasksHotkey0, quickFlasksHotkey1
+
+    ApplyHotkeyAction(hotkeyQuickFlaskPrimary, RunQuickFlaskPrimaryHotkey, action)
+    ApplyHotkeyAction(hotkeyToggleQuickFlask, RunActivateQuickFlaskHotkey, action)
+    ApplyHotkeyAction(hotkeyAutoattack, RunAutoattackHotkey, action)
+    ApplyHotkeyAction(hotkeyAutoTimeFlask, RunAutoTimeFlaskHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickEnter0, RunQuickEnter0Hotkey, action)
+    ApplyHotkeyAction(hotkeyQuickEnter1, RunQuickEnter1Hotkey, action)
+    ApplyHotkeyAction(hotkeyQuickEnter2, RunQuickEnter2Hotkey, action)
+    ApplyHotkeyAction(hotkeyQuickEnter3, RunQuickEnter3Hotkey, action)
+    ApplyHotkeyAction(hotkeyQuickEnter4, RunQuickEnter4Hotkey, action)
+    ApplyHotkeyAction(hotkeyQuickEnter5, RunQuickEnter5Hotkey, action)
+    ApplyHotkeyAction(hotkeyQuickEnter7, RunQuickEnter7Hotkey, action)
+    ApplyHotkeyAction(hotkeyCheckMousePos, RunCheckMousePosHotkey, action)
+    ApplyHotkeyAction(hotkeySaveCoordinates, RunSaveCoordinatesHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickBagmoving, RunQuickBagmovingHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickTradeScanning, RunQuickTradeScanningHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickScouringAlchemy, RunQuickScouringAlchemyHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickJewellerFusing, RunQuickJewellerFusingHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickFastGuard, RunQuickFastGuardHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickFast2ndGuard, RunQuickFast2ndGuardHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickFast3rdGuard, RunQuickFast3rdGuardHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickmoving, RunQuickmovingHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickChanceToUnique, RunQuickChanceToUniqueHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickOpenDeck, RunQuickOpenDeckHotkey, action)
+    ApplyHotkeyAction(hotkeyQuickTradeCards, RunQuickTradeCardsHotkey, action)
+    ApplyHotkeyAction(hotkeyActivateAutoDetonate, RunActivateAutoDetonateHotkey, action)
+    ApplyHotkeyAction(hotkeyAutoDetonateTrigger, RunAutoDetonateTriggerHotkey, action)
+    ApplyHotkeyAction(hotkeyAnnouncement, RunAnnouncementHotkey, action)
+    ApplyHotkeyAction(hotkeySetAutoflask, RunSetAutoflaskHotkey, action)
+    ApplyHotkeyAction(hotkeyActivateAutoflask, RunActivateAutoflaskHotkey, action)
+    ApplyHotkeyAction(hotkeyLootAll, RunLootAllHotkey, action)
+    ApplyHotkeyAction(quickFlasksHotkey0, QuickFlaskLabel0, action)
+    ApplyHotkeyAction(quickFlasksHotkey1, QuickFlaskLabel1, action)
+}
+
+ApplyHotkeyAction(key, handler, action) {
+    key := Trim(key)
+    if !key
+        return
+    try Hotkey(key, handler, action)
+}
+
 
 ;===============================================================================
 ;廢棄功能
@@ -272,13 +388,4 @@ QuickFlaskLabel1(*) {
         LootBigRegion()
     }
     return
-*/
-
-/*
-
-; 傳送卷軸的座標(可用Shift + D查詢), 預設是在2560x1080視窗大小下背包的最右下角。
-; 備註:需要數字個位數字是0，若座標為1549 會導致設置失效，
-; 備註2:3.24以後遊戲中已經內建自動開啟傳送卷軸功能，已廢棄。
-~^F::OpenPortal()                          ; Ctrl+F: Open bag and use portal scroll. 開啟背包並使用傳送卷軸。
-
 */

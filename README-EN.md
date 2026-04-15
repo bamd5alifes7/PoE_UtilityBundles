@@ -1,135 +1,91 @@
-[中文版說明](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/README.md)
+[中文說明](https://github.com/bamd5alifes7/PoE_UtilityBundles/blob/master/README.md)
 
+# PoE_UtilityBundles
 
-First, thanks to the original creator, heyfey's POE_Utility. PoE_UtilityBundles is a branch based on this work.
+Special thanks to the original creator of [POE_Utility](https://github.com/heyfey/POE_Utility).  
+PoE_UtilityBundles is an AutoHotkey-based utility collection for Path of Exile, focused on quick chat input, flask actions, stash movement, coordinate tools, and other convenience automation.
 
+## Warning
 
-## Overview
-
-**PoE_UtilityBundles** provides shortcuts for PoE such as: **quick-loot**, **quick-flasks**, **auto-flasks**, and **switch channel**, etc. These shorcuts can significantly improve one's gaming experience
-
-Though I simply implement some features I need, any suggestion is welcome.
-
-## *WARNING* 
-
-*User must understand that many features of this script definitely violate PoE user rules.*
-
----
-
-* [Usage](#Usage)
-* [How to Close](#How to Close)
-* [Interface Example](#Interface Example)
-* [Features](#Features)
-* [Advanced Settings](#Advanced Settings)
-
----
+Many features in this project are clearly automation-related and may violate Path of Exile rules.  
+Use this project at your own risk.
 
 ## Usage
 
-Direct Use：
+### Run the executable
 
-1. Download。
-   
-   (1)Click the 'Clone' button at the top of this page, then select 'Download ZIP'.
-   
-   (2)Click the release link on the middle-right of this page, then select POE_UtilityBundles.exe or Source code (zip).
+1. Download `PoE_UtilityBundles.exe` from Releases.
+2. Double-click it to start.
 
-2. Double-click POE_UtilityBundles.exe to start. You may skip the introduction screen.
+If Windows Defender SmartScreen blocks the executable, choose "More info" and then "Run anyway".
 
-P.S. If Windows Defender SmartScreen blocks it, click "More info" > "Run anyway" to proceed.
+### Run from source
 
-Or, run from source code：
+1. Install [AutoHotkey v2](https://www.autohotkey.com/).
+2. Download the project source.
+3. Open the [`src`] folder.
+4. Run [`PoE_UtilityBundles.ahk`].
 
-1. Download and install [AutoHotKey](https://www.autohotkey.com/) 。 If it crashes, try version AutoHotkey_1.1.34.02.
+## Close and Save Behavior
 
-2. Download。
-   
-   (1) Click the 'Clone' button at the top of this page, then select 'Download ZIP'.
-   
-   (2)點選此頁面右中Releases下的超連結。再點選Source code(zip)。
+- `Apply change`: immediately applies GUI values, re-registers hotkeys, and writes them to `settings.ini`.
+- Clicking the `X` button:
+  - closes immediately when there are no unsaved changes
+  - shows a confirmation dialog when there are unsaved changes
+  - `Yes` saves and exits
+  - `No` exits without saving
+  - `Cancel` keeps the GUI open
+- You can also close the app from the tray icon.
 
-3. Open the source code in an editor like Notepad++ to review.
-   
-4. Double-click POE_UtilityBundles.ahk to start. You may skip the introduction screen.
+## UI Example
 
+![UI](https://github.com/bamd5alifes7/PoE_UtilityBundles/blob/master/demo/%E4%BB%8B%E9%9D%A2.png)
 
-## How to Close
+## Recommended Setup First
 
+- Default coordinates assume a `2560x1080` window size.
+- If your window size is different, use `Shift + D` first to inspect cursor coordinates and pixel colors.
+- It is recommended to set these first:
+  - inventory top-left / bottom-right
+  - trade window top-left / bottom-right
+  - stash ranges
+  - crafting and target coordinates
 
-1.In the GUI interface, click the X symbol in the upper right corner to close POE_UtilityBundles.
+## Main Features
 
-2.Alternatively, you can find the POE_Utilitybundles AHK icon in the system tray and close it manually.
+- `XButton2`: quick flask
+- `Ctrl+L`: toggle quick flask remap mode
+- `XButton1`: hold right-click and cast skills on a timer
+- `MButton`: timed cycle actions
+- `F3` / `Ctrl+F3` / `Ctrl+F4` / `F5` / `F6` / `Ctrl+F6`: quick chat input
+- `Ctrl+\`: return to character selection
+- `Shift+D`: inspect cursor position and pixel color
+- `F7`: save the current cursor coordinate into a selected slot
+- `F2`: move inventory items quickly
+- `Shift+F2`: scan trade window slots
+- `F4`: scour + alchemy
+- `F9`: repeated clicking on cursor target
+- `F10` / `Ctrl+F10` / `Shift+F10`: move stash column ranges
+- `F11`: move items while dragging across them
+- `Ctrl+F7`: chance/scour loop for unique target items
+- `Ctrl+F8`: open stacked decks
+- `Ctrl+Shift+F8`: move divination cards into trade
+- `Ctrl+D`: toggle auto mine detonation
+- `Shift+V`: multi-channel broadcast
+- `Ctrl+Shift+F`: set auto-flask probe coordinate and color
+- `Ctrl+Shift+L`: toggle auto-flask
+- `Ctrl+A`: auto loot
 
-## Interface Example
+## Deprecated or Low-Priority Features
 
+- `Ctrl+PageUp`: old SearchItem flow, now removed
+- legacy portal-scroll-related automation
+- some pixel-color-based features may still be sensitive to lighting, resolution, or UI state
 
-![image](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/demo/%E4%BB%8B%E9%9D%A2.png)
+## Advanced Tweaks
 
-
-## Features
-
-Open the program and click OK to start using it.
-
-Press and hold F12 to stop all running functions. If it is still stuck after holding it down for a few seconds, please use Ctrl+Alt+Del to call out the work administrator, and then stop the work manually.
-
-The default button settings are all for the 2560x1080 window size. If your window does not have this setting, please use SHIFT+D to query the coordinate positions and set the coordinate settings in the function.
-
-The GUI interface can be minimized but cannot be closed during use.
-
-[XButton2] Front mouse side button: Click the button once to use the medicine in the medicine list.
-
-[Ctrl+L] Turns on or off the one-click drinking mode that activates the hotkey. When enabled, the action of pressing a hotkey is changed to a keystroke in the output list.
-
-[XButton1] After pressing the side button of the mouse, hold down the right button and cast the skills in the list regularly.
-
-[MButton] Mouse wheel: After pressing, start the timed action. Including continuous attack, timed drinking and timed attack. The default is four seconds per cycle.
-
-[F3] Quick input, the default is Korean world frequency 168.
-
-[Ctrl+F3] Quick input, the default is Korean trading frequency 615.
-
-[Ctrl+F4] Quick input, the default is English world frequency 666.
-
-[F5] Quick input, the default is to enter the hideout.
-
-[F6] Quick input, the default is world frequency 5587.
-
-[Ctrl+F6] Quick input, default is None.
-
-[Ctrl+~] Return to the casting interface.
-
-[Shift+D] Get the color and coordinate position of the item.
-
-[F2] With the backpack open, select the items in the backpack one by one, for example, throw them into the warehouse.
-
-[Shift+F2] Quickly count transaction columns
-
-After pressing [F4], use the Recast Stone and Philosopher's Stone for the item coordinates. The default is the item in the currency warehouse page.
-
-[F9] For the currency that has been picked up by right-clicking, such as link stones, continuously click the item on the cursor coordinates, and F12 is the stop key.
-
-[F10] Single click to start quickly moving objects from the first column to the fifth column on the left side of the warehouse. The default is a warehouse page without folders.
-
-[Ctrl+F10] Click once to start quickly moving objects in the sixth to tenth columns on the left side of the warehouse. The default is a warehouse page without folders.
-
-[F11] Hold down the button and move the mouse cursor to quickly move the object the cursor passes. .
-
-[Ctrl+D] Turn on/off automatic detonation of mines
-
-[F10] Right-click the RButton, and when the automatic detonation of mines is turned on, use the right-click skill and detonate the mines.
-
-[Shift+V] is broadcast in multiple trading channels. When using it, the input method needs to be cut into uppercase English. But it is of little use in international servers.
-
-[Ctrl+PageUp] Check prices with one click. But Awakened PoE Trade (international server) or rchin-poe-trade (hotcool) are more useful and have been abandoned.
-
-[Ctrl+Shift+F] Based on the mouse cursor position, set the blood volume coordinates and color required to automatically drink water.
-
-[Ctrl+Shift+L] Turn on/off automatic drinking water. Detect the color of the specified coordinates. If it is not the specified color, use potion. But there will be errors when the light is different. So it's not very useful.
-
-[Ctrl+a] Continue to press to automatically pick up the item. It needs to be matched with the item filter of the specified color. However, since the pickup speed cannot be too fast, it is of little use.
-
-
-### advanced settings
-
-Advanced AHK users can make more detailed adjustments in functions_int.ahk, or add their favorite functions depending on the situation.
-
+- Most hotkeys, coordinates, and broadcast text can be changed from the GUI.
+- For deeper changes, see:
+  - [`src/functions_int.ahk`]
+  - [`src/gui.ahk`]
+  - [`src/rw_settings.ahk`]

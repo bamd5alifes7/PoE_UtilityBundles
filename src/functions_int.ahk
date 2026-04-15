@@ -31,29 +31,30 @@ Activate_AutoFlask(){
     auto_flask_active := !auto_flask_active
     if auto_flask_active{
         MsgBox("Auto flask : On",, "T0.5")
-        AutoFlask()
+        SetTimer(AutoFlaskTick, 100)
     }
     else{
+        SetTimer(AutoFlaskTick, 0)
         MsgBox("Auto flask : Off",, "T0.5")
     }
     return
 }
 
-AutoFlask(){
+AutoFlaskTick(){
     global auto_flask_active, low_life_X, low_life_Y, life_color, low_life_flask_list
-    while auto_flask_active
-    {
-        if WinActive("Path of Exile")
-        {
-            color := PixelGetColor(low_life_X, low_life_Y, "RGB")
-            if color == life_color
-            {
-                QuickFlask(low_life_flask_list)
-                Sleep 200
-            }
-        }
+    static readyAt := 0
+
+    if !auto_flask_active || !WinActive("ahk_exe PathOfExile.exe")
+        return
+
+    if A_TickCount < readyAt
+        return
+
+    color := PixelGetColor(low_life_X, low_life_Y, "RGB")
+    if color != life_color {
+        QuickFlask(low_life_flask_list)
+        readyAt := A_TickCount + 250
     }
-    return
 }
 
 Set_Autoflask(){
@@ -70,7 +71,6 @@ Activate_QuickFlask(){
     quick_flask_active := !quick_flask_active
     if quick_flask_active{
         MsgBox("Quick flask : On",, "T0.5")
-        AutoFlask()
     }
     else{
         MsgBox("Quick flask : Off",, "T0.5")
@@ -89,6 +89,25 @@ QuickFlask(list){
         Sleep 50
     }
     return
+}
+
+BuildGridCenters(topLeftX, topLeftY, bottomRightX, bottomRightY, columns, rows){
+    positions := []
+    cellWidth := (bottomRightX - topLeftX) / columns
+    cellHeight := (bottomRightY - topLeftY) / rows
+
+    Loop columns * rows
+    {
+        index := A_Index - 1
+        column := Floor(index / rows)
+        row := Mod(index, rows)
+        positions.Push({
+            x: topLeftX + cellWidth * column + cellWidth / 2,
+            y: topLeftY + cellHeight * row + cellHeight / 2
+        })
+    }
+
+    return positions
 }
 
 AutoTimeFlask(flasklist, attacklist, keepattacklist, AutoInterval){
@@ -161,6 +180,155 @@ CheckMousePos(){
     return
 }
 
+SaveCoordinatesTool(){
+    global DeckX, DeckY, ChanceX, ChanceY, cardTradeX, cardTradeY, ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    global BagFirstX, BagFirstY, BagLastX, BagLastY
+    global tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    global stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY
+    global stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY
+    global stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY
+    global low_life_X, low_life_Y
+
+    if !WinActive("ahk_exe PathOfExile.exe") {
+        MsgBox("Please switch to Path of Exile first, then place your cursor on the spot you want to save.")
+        return
+    }
+
+    MouseGetPos(&mouseX, &mouseY)
+    option := PromptCoordinateSaveOption(mouseX, mouseY)
+    if option = ""
+        return
+
+    switch option {
+        case "1":
+            DeckX := mouseX, DeckY := mouseY
+        case "2":
+            ChanceX := mouseX, ChanceY := mouseY
+        case "3":
+            ScouringX := mouseX, ScouringY := mouseY
+        case "4":
+            AlchemyX := mouseX, AlchemyY := mouseY
+        case "5":
+            ItemX := mouseX, ItemY := mouseY
+        case "6":
+            cardTradeX := mouseX, cardTradeY := mouseY
+        case "7":
+            BagFirstX := mouseX, BagFirstY := mouseY
+        case "8":
+            BagLastX := mouseX, BagLastY := mouseY
+        case "9":
+            tradeFirstX := mouseX, tradeFirstY := mouseY
+        case "10":
+            tradeLastX := mouseX, tradeLastY := mouseY
+        case "11":
+            stash1To5TopLeftX := mouseX, stash1To5TopLeftY := mouseY
+        case "12":
+            stash1To5BottomRightX := mouseX, stash1To5BottomRightY := mouseY
+        case "13":
+            stash6To10TopLeftX := mouseX, stash6To10TopLeftY := mouseY
+        case "14":
+            stash6To10BottomRightX := mouseX, stash6To10BottomRightY := mouseY
+        case "15":
+            stash11To12TopLeftX := mouseX, stash11To12TopLeftY := mouseY
+        case "16":
+            stash11To12BottomRightX := mouseX, stash11To12BottomRightY := mouseY
+        case "17":
+            low_life_X := mouseX, low_life_Y := mouseY
+        default:
+            MsgBox("Unknown option. Please enter a number from 1 to 17.")
+            return
+    }
+
+    SaveSettings()
+    MsgBox("Saved " GetCoordinateOptionLabel(option) " at x=" mouseX " y=" mouseY, , "T1")
+}
+
+PromptCoordinateSaveOption(mouseX, mouseY) {
+    choice := ""
+    dialog := Gui("+AlwaysOnTop", "Save Cursor Position")
+    dialog.SetFont("s9", "Segoe UI")
+    dialog.Add("Text", "x16 y16 w700 h20", "Current cursor position: [" mouseX ", " mouseY "]")
+    dialog.Add("Edit", "x16 y44 w700 h290 ReadOnly -Wrap", 
+        "1 = Stacked Deck`r`n"
+        . "2 = Orb of Chance`r`n"
+        . "3 = Orb of Scouring`r`n"
+        . "4 = Orb of Alchemy`r`n"
+        . "5 = Craft target item`r`n"
+        . "6 = Card trade inventory`r`n"
+        . "7 = Bag top-left`r`n"
+        . "8 = Bag bottom-right`r`n"
+        . "9 = Trade window top-left`r`n"
+        . "10 = Trade window bottom-right`r`n"
+        . "11 = Stash tabs 1-5 top-left`r`n"
+        . "12 = Stash tabs 1-5 bottom-right`r`n"
+        . "13 = Stash tabs 6-10 top-left`r`n"
+        . "14 = Stash tabs 6-10 bottom-right`r`n"
+        . "15 = Stash tabs 11-12 top-left`r`n"
+        . "16 = Stash tabs 11-12 bottom-right`r`n"
+        . "17 = Auto flask life-color probe"
+    )
+    dialog.Add("Text", "x16 y350 w420 h20", "Enter the number for the position you want to save:")
+    optionEdit := dialog.Add("Edit", "x16 y376 w96 h26 vselectedOption", "1")
+    saveButton := dialog.Add("Button", "x500 y372 w100 h30 Default", "Save")
+    cancelButton := dialog.Add("Button", "x616 y372 w100 h30", "Cancel")
+
+    saveButton.OnEvent("Click", (*) => (
+        submitted := dialog.Submit(false),
+        choice := Trim(submitted.selectedOption),
+        dialog.Destroy()
+    ))
+    cancelButton.OnEvent("Click", (*) => dialog.Destroy())
+    dialog.OnEvent("Close", (*) => dialog.Destroy())
+    dialog.OnEvent("Escape", (*) => dialog.Destroy())
+
+    dialog.Show("w736 h424 Center")
+    dialogHwnd := dialog.Hwnd
+    optionEdit.Focus()
+    WinWaitClose("ahk_id " dialogHwnd)
+    return choice
+}
+
+GetCoordinateOptionLabel(option) {
+    switch option {
+        case "1":
+            return "Stacked Deck"
+        case "2":
+            return "Orb of Chance"
+        case "3":
+            return "Orb of Scouring"
+        case "4":
+            return "Orb of Alchemy"
+        case "5":
+            return "Craft target item"
+        case "6":
+            return "Card trade inventory"
+        case "7":
+            return "Bag top-left"
+        case "8":
+            return "Bag bottom-right"
+        case "9":
+            return "Trade window top-left"
+        case "10":
+            return "Trade window bottom-right"
+        case "11":
+            return "Stash tabs 1-5 top-left"
+        case "12":
+            return "Stash tabs 1-5 bottom-right"
+        case "13":
+            return "Stash tabs 6-10 top-left"
+        case "14":
+            return "Stash tabs 6-10 bottom-right"
+        case "15":
+            return "Stash tabs 11-12 top-left"
+        case "16":
+            return "Stash tabs 11-12 bottom-right"
+        case "17":
+            return "Auto flask life-color probe"
+        default:
+            return "option " option
+    }
+}
+
 LootBigRegion(){
     global lootColor
     local Px, Py
@@ -184,68 +352,27 @@ LootSmallRegion(){
 }
 
 LootAll(){
+    global loot_dalay
+    smallDelay := 100
+    largeDelay := IsNumber(loot_dalay) ? Round(loot_dalay) : 400
+
     while (GetKeyState("LControl", "P") && GetKeyState("a", "P")){
         if !LootSmallRegion(){
             break
         }
-        Sleep 100
+        Sleep smallDelay
     }
 
     while (GetKeyState("LControl", "P") && GetKeyState("a", "P")){
         LootBigRegion()
-        Sleep 400
+        Sleep largeDelay
         while (GetKeyState("LControl", "P") && GetKeyState("a", "P")){
             if !LootSmallRegion(){
                 break
             }
-            Sleep 100
+            Sleep smallDelay
         }
     }
-}
-
-OpenPortal(){
-    global portalX, portalY
-
-	;為了避免按鍵沾黏，等按鍵釋放後才發動效果
-	KeyWait("F")
-	KeyWait("Control")
-	
-	;根據官方語法更建議SendMode，因為他會把按鍵存起來之後釋放。而BlockInput是直接丟棄按鍵，但懶得改
-    BlockInput("On")
-	
-	;避免按鍵沾黏，主動釋放按鍵，不太實用但保留範例
-	;send {LControl up}	
-
-    MouseGetPos(&x, &y)
-    Sleep 50
-    Send("{i}")
-    Sleep 50	
-
-	;應該是因為數字需要整數，若設置為非0尾數會失敗
-	MouseMove(portalX, portalY)
-	
-	;可直接使用座標數字
-	;MouseMove(2500, 1100)
-	
-	Sleep 50
-	MouseClick("right")
-    Sleep 50
-    Send("{i}")
-    Sleep 50
-    MouseMove(x, y)
-    Sleep 50
-    BlockInput("Off")
-    return   
-}
-
-QuickSearchItem(){
-    global url
-    temp := A_Clipboard
-    A_Clipboard := GetItemName()
-    if A_Clipboard != ""
-        SearchItem(url)
-    A_Clipboard := temp
-    return
 }
 
 Quickmoving(){
@@ -260,7 +387,7 @@ Quickmoving(){
 			}
 			
 		Click("left")
-        Sleep 20
+        Sleep 40
         }
 	
     return
@@ -295,6 +422,133 @@ QuickJewellerandFusing(){
     return
 }
 
+QuickChanceToUnique(){
+    global BagFirstX, BagFirstY, BagLastX, BagLastY
+    global ChanceX, ChanceY, ScouringX, ScouringY
+
+    beltSlots := [1, 2, 3, 4, 5, 11, 12, 13, 14, 15]
+    bagPositions := BuildGridCenters(BagFirstX, BagFirstY, BagLastX, BagLastY, 12, 5)
+
+    BlockInput("On")
+    MouseGetPos(&startX, &startY)
+
+    for slot in beltSlots {
+        if GetKeyState("F12", "P")
+            break
+
+        while true {
+            if GetKeyState("F12", "P")
+                break
+
+            sleepTime := Random(80, 100)
+            MouseMove(bagPositions[slot].x, bagPositions[slot].y, 1)
+            Sleep sleepTime
+            A_Clipboard := ""
+            Send("^c")
+            Sleep 30
+            Send("^c")
+            if !ClipWait(0.3) {
+                Sleep sleepTime
+                continue
+            }
+
+            itemRarity := GetItemRarity(A_Clipboard)
+            if itemRarity = 3
+                break
+
+            MouseMove(ScouringX, ScouringY, 1)
+            Sleep sleepTime
+            Click("right")
+            MouseMove(bagPositions[slot].x, bagPositions[slot].y, 1)
+            Sleep sleepTime
+            Click("left")
+            MouseMove(ChanceX, ChanceY, 1)
+            Sleep sleepTime
+            Click("right")
+            MouseMove(bagPositions[slot].x, bagPositions[slot].y, 1)
+            Sleep sleepTime
+            Click("left")
+        }
+    }
+
+    MouseMove(startX, startY, 1)
+    BlockInput("Off")
+}
+
+QuickTradeCards(){
+    global BagFirstX, BagFirstY, BagLastX, BagLastY, cardTradeX, cardTradeY
+
+    bagPositions := BuildGridCenters(BagFirstX, BagFirstY, BagLastX, BagLastY, 12, 5)
+
+    BlockInput("On")
+    Send("{Ctrl down}")
+    MouseGetPos(&startX, &startY)
+
+    for position in bagPositions {
+        if GetKeyState("F12", "P")
+            break
+
+        sleepTime := Random(200, 220)
+        MouseMove(position.x, position.y, 1)
+        Click()
+        Sleep sleepTime
+        MouseMove(cardTradeX, cardTradeY, 1)
+        Click()
+        Sleep sleepTime
+    }
+
+    MouseMove(startX, startY, 1)
+    Send("{Ctrl up}")
+    BlockInput("Off")
+}
+
+QuickOpenDeck(){
+    global DeckX, DeckY, BagFirstX, BagFirstY, BagLastX, BagLastY
+
+    bagSlot := BuildGridCenters(BagFirstX, BagFirstY, BagLastX, BagLastY, 12, 5)[1]
+
+    BlockInput("On")
+
+    Loop 5000
+    {
+        if GetKeyState("F12", "P") {
+            Send("{Ctrl up}")
+            BlockInput("Off")
+            return
+        }
+
+        sleepTime := Random(260, 300)
+        Send("{Ctrl up}")
+        MouseMove(DeckX, DeckY, 1)
+        Click("right")
+        Sleep sleepTime
+
+        MouseMove(bagSlot.x, bagSlot.y, 1)
+        Click()
+        Sleep sleepTime
+
+        Send("{Ctrl down}")
+        MouseMove(bagSlot.x, bagSlot.y, 1)
+        Click()
+        Sleep sleepTime
+    }
+
+    Send("{Ctrl up}")
+    BlockInput("Off")
+}
+
+GetItemRarity(text){
+    if InStr(text, "稀有度: 普通") || InStr(text, "Rarity: Normal")
+        return 0
+    if InStr(text, "稀有度: 魔法") || InStr(text, "Rarity: Magic")
+        return 1
+    if InStr(text, "稀有度: 稀有") || InStr(text, "Rarity: Rare")
+        return 2
+    if InStr(text, "稀有度: 傳奇") || InStr(text, "Rarity: Unique")
+        return 3
+    return -1
+}
+
 QuickScouringAndAlchemy(ScouringX,ScouringY,ItemX,ItemY,AlchemyX,AlchemyY){
     MouseMove(ItemX, ItemY, 2)
     Sleep 50
@@ -325,41 +579,19 @@ QuickScouringAndAlchemy(ScouringX,ScouringY,ItemX,ItemY,AlchemyX,AlchemyY){
 
 
 QuickBagmoving(BagFirstX,BagFirstY,BagLastX,BagLastY){
-
-	;背包欄最左上邊緣的尖角,改成用全域變數
-	;BagFirstX = 1694
-	;BagFirstY = 781
-	;背包欄最右下邊緣的尖角,改成用全域變數
-	;BagLastX = 2539
-	;BagLastY = 1137
-	;背包座標的數列
-	BagPosX := []
-	BagPosY := []
-
-	;由左上角和右下角座標，計算60個需操作的位置。
-	Loop 60
-	{
-        i := A_Index
-
-		;初始X座標 + 格子長度*無條件捨去((當前數字-1)/5) + 格子一半長度
-		TempX := BagFirstX + ((BagLastX - BagFirstX) / 12) * Floor((i - 1) / 5) + (BagLastX - BagFirstX) / 12 / 2
-		BagPosX.Push(TempX)
-		;初始Y座標 + 格子高度*餘數((當前數字-1)/5) + 格子一半高度
-		TempY := BagFirstY + (BagLastY - BagFirstY) / 5 * Mod(i - 1, 5) + (BagLastY - BagFirstY) / 5 / 2
-		BagPosY.Push(TempY)
-	}
+    bagPositions := BuildGridCenters(BagFirstX, BagFirstY, BagLastX, BagLastY, 12, 5)
 
     BlockInput("On")
     Send("{Ctrl down}")
 	MouseGetPos(&tempX, &tempY)
 	
-    for k, v in BagPosX
+    for position in bagPositions
 		{	
 		
 		if GetKeyState("F12", "P") 
 		break 
 		
-		MouseMove(BagPosX[k], BagPosY[k], 1)
+		MouseMove(position.x, position.y, 1)
 		; 國際服間隔個時間增加
 		rand := Random(20, 40)
 		
@@ -376,36 +608,18 @@ QuickBagmoving(BagFirstX,BagFirstY,BagLastX,BagLastY){
 }
 
 Quicktradescanning(tradeFirstX,tradeFirstY,tradeLastX,tradeLastY){
-
-;交易欄最左上邊緣的尖角,改成用全域變數
-;tradeFirstX = 412
-;tradeFirstY = 269
-;交易欄最右下邊緣的尖角,改成用全域變數
-;tradeLastX = 1261
-;tradeLastY = 612
-tradePosX := []
-tradePosY := []
+tradePositions := BuildGridCenters(tradeFirstX, tradeFirstY, tradeLastX, tradeLastY, 12, 5)
 
 	MouseGetPos(&tempMouseX, &tempMouseY)
-	
-	Loop 60
-	{
-        i := A_Index
 
-	TempX := tradeFirstX + ((tradeLastX - tradeFirstX) / 12) * Floor((i - 1) / 5) + (tradeLastX - tradeFirstX) / 12 / 2
-	tradePosX.Push(TempX)
-	TempY := tradeFirstY + (tradeLastY - tradeFirstY) / 5 * Mod(i - 1, 5) + (tradeLastY - tradeFirstY) / 5 / 2
-	tradePosY.Push(TempY)
-	}
-
-    for k, v in tradePosX
+    for position in tradePositions
     {	
 	
 	;會使判斷在第七物件之後重新一遍，所以取消按住判定，改為按鍵取消
     if GetKeyState("F12") 
 		break 
 	
-    MouseMove(tradePosX[k], tradePosY[k], 1)
+    MouseMove(position.x, position.y, 1)
     rand := Random(30, 40)
     Sleep rand	
 
@@ -417,36 +631,18 @@ tradePosY := []
 
 }
 
-QuickFastGuadmoving(TabFirstX,TabFirstY,TabLastX,TabLastY)
+MoveStashColumns1To5(stash1To5TopLeftX,stash1To5TopLeftY,stash1To5BottomRightX,stash1To5BottomRightY)
 {
-
-/*
-倉庫頁最左上邊緣的尖角,改成用全域變數	
-TabFirstX = 23
-TabFirstY = 185
-倉庫頁第五直欄最右下邊緣的尖角,改成用全域變數
-TabLastX = 373
-TabLastY = 1022
-*/
-
-TabPosX := []
-TabPosY := []
-
-	Loop 60
-	{
-        i := A_Index
-
-	TempX := TabFirstX + ((TabLastX - TabFirstX) / 5) * Floor((i - 1) / 12) + (TabLastX - TabFirstX) / 5 / 2
-	TabPosX.Push(TempX)
-	TempY := TabFirstY + (TabLastY - TabFirstY) / 12 * Mod(i - 1, 12) + (TabLastY - TabFirstY) / 12 / 2
-	TabPosY.Push(TempY)
-	}
+    global stashMoveDelayMin, stashMoveDelayMax
+    tabPositions := BuildGridCenters(stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY, 5, 12)
+    minDelay := Min(stashMoveDelayMin, stashMoveDelayMax)
+    maxDelay := Max(stashMoveDelayMin, stashMoveDelayMax)
 	
 BlockInput("On")
     Send("{Ctrl down}")
 	MouseGetPos(&tempX, &tempY)
 	
-    for k, v in TabPosX
+    for position in tabPositions
     {    
     
 	;台服設置MouseMove,1  Random, 10, 20 (待測)
@@ -455,10 +651,10 @@ BlockInput("On")
     if GetKeyState("F12", "P") 
 		break 
 
-	rand := Random(10, 20)
+	rand := Random(minDelay, maxDelay)
 	Sleep rand
-    MouseMove(TabPosX[k], TabPosY[k], 1)
-	rand := Random(10, 20)
+    MouseMove(position.x, position.y, 1)
+	rand := Random(minDelay, maxDelay)
 	Sleep rand
     MouseClick()
 	
@@ -473,27 +669,18 @@ BlockInput("On")
 	
 }
 
-QuickFast2ndGuadmoving(Tab2ndFirstX,Tab2ndFirstY,Tab2ndLastX,Tab2ndLastY)
+MoveStashColumns6To10(stash6To10TopLeftX,stash6To10TopLeftY,stash6To10BottomRightX,stash6To10BottomRightY)
 {
-	
-Tab2ndPosX := []
-Tab2ndPosY := []
-
-	Loop 60
-	{
-        i := A_Index
-
-	TempX := Tab2ndFirstX + ((Tab2ndLastX - Tab2ndFirstX) / 5) * Floor((i - 1) / 12) + (Tab2ndLastX - Tab2ndFirstX) / 5 / 2
-	Tab2ndPosX.Push(TempX)
-	TempY := Tab2ndFirstY + (Tab2ndLastY - Tab2ndFirstY) / 12 * Mod(i - 1, 12) + (Tab2ndLastY - Tab2ndFirstY) / 12 / 2
-	Tab2ndPosY.Push(TempY)
-	}
+	global stashMoveDelayMin, stashMoveDelayMax
+Tab2ndPositions := BuildGridCenters(stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY, 5, 12)
+    minDelay := Min(stashMoveDelayMin, stashMoveDelayMax)
+    maxDelay := Max(stashMoveDelayMin, stashMoveDelayMax)
 	
 BlockInput("On")
     Send("{Ctrl down}")
 	MouseGetPos(&tempX, &tempY)
 	
-    for k, v in Tab2ndPosX
+    for position in Tab2ndPositions
     {    
     
 	;台服設置MouseMove,1  Random, 10, 20 (待測)
@@ -502,10 +689,10 @@ BlockInput("On")
     if GetKeyState("F12", "P") 
 		break 
 
-	rand := Random(10, 20)
+	rand := Random(minDelay, maxDelay)
 	Sleep rand
-    MouseMove(Tab2ndPosX[k], Tab2ndPosY[k], 1)
-	rand := Random(10, 20)
+    MouseMove(position.x, position.y, 1)
+	rand := Random(minDelay, maxDelay)
 	Sleep rand
     MouseClick()
 	
@@ -519,6 +706,38 @@ BlockInput("On")
     BlockInput("Off")
     return
 	
+}
+
+MoveStashColumns11To12(stash11To12TopLeftX,stash11To12TopLeftY,stash11To12BottomRightX,stash11To12BottomRightY)
+{
+    global stashMoveDelayMin, stashMoveDelayMax
+    Tab3rdPositions := BuildGridCenters(stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY, 2, 12)
+    minDelay := Min(stashMoveDelayMin, stashMoveDelayMax)
+    maxDelay := Max(stashMoveDelayMin, stashMoveDelayMax)
+
+    BlockInput("On")
+    Send("{Ctrl down}")
+    MouseGetPos(&tempX, &tempY)
+
+    for position in Tab3rdPositions
+    {
+        if GetKeyState("F12", "P")
+            break
+
+        rand := Random(minDelay, maxDelay)
+        Sleep rand
+        MouseMove(position.x, position.y, 1)
+        rand := Random(minDelay, maxDelay)
+        Sleep rand
+        MouseClick()
+    }
+
+    MouseMove(tempX, tempY, 1)
+    Send("{Ctrl up}")
+    Send("{Shift up}")
+    Send("{Alt up}")
+    BlockInput("Off")
+    return
 }
 
 ;這功能原本是寫給公倉用的，慢速版的移動倉庫物品。但實際上用不著，已廢棄

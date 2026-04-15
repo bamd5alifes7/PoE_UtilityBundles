@@ -1,131 +1,91 @@
-
-[English guide](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/README-EN.md)
-
-首先，感謝原作者。[heyfey的原作POE_Utility](https://github.com/heyfey/POE_Utility/)，POE_UtilityBundles是基於此之上的分支。
-
-
-**PoE_UtilityBundles**
-是一份AHK腳本，提供POE的快捷鍵包括：**一鍵喝水、定時喝水、切換頻道、移動物品、點鏈結石、自動引爆地雷、自動喝水、自動撿裝**等等。
-
-## 免責聲明 
-
-此腳本的許多功能**絕對違反**遊戲規章，使用者請自行承擔所有可能後果和風險>>>[可以參考這裡](https://www.ptt.cc/bbs/PathofExile/M.1536799446.A.BB1.html)
-
-> (原作者和我都未曾因這個程式而被封)
-> 
-> (原因是此程式並不會讀取/修改記憶體內容。僅模擬鍵鼠動作的話，一是官方容許，二是較難偵測)
-
----
-
-* [如何使用](#如何使用)
-* [如何關閉](#如何關閉)
-* [介面示意](#介面示意)
-* [功能簡介](#功能簡介)
-* [進階設定](#進階設定)
-
----
-
-## 如何使用
-
-兩種方式，直接使用 exe 或自行下載語言包後執行程式碼
-
-一.直接使用 exe ：
-
-1. 點選頁面右方 Releases 下的超連結。下載 POE_UtilityBundles.exe。
-
-2. 左鍵雙擊`POE_UtilityBundles.exe`。確認簡介訊息就可開始使用，無須關閉應用程式畫面。
-
-P.S.如果你是首次使用，而跳出 Windows Defender SmartScreen 無法辨識的通知，請點選「其他資訊」後，「仍要執行」來運行此程式。
-
-
-二.以原始碼方式執行：
-
-1. 下載並安裝 [AutoHotKey](https://www.autohotkey.com/) 。如果閃退或沒反應，請安裝我編寫時的版本號 `AutoHotkey_2.0.22`。
-
-2. 點選此頁面右方 Releases 下的超連結。點選並下載 Source code(zip)。
-
-3. 用 Notepad++ 之類的文字編輯器打開 src 資料夾下的程式碼，讀到你覺得可安心使用。(恐懼是來自於未知)
-   
-4. 左鍵雙擊 `POE_UtilityBundles.ahk`，確認簡介訊息就可開始使用，無須關閉應用程式畫面。
-
-
-## 如何關閉
-
-
-1. 在應用程式畫面中，點選右上角的 X 符號。就關閉了POE_UtilityBundles。
-
-2. 或可在 Windows 右下的狀態列中找到 POE_UtilityBundles 的綠色 icon ，右鍵手動關閉。
-
-## 介面示意 
-![image](https://github.com/bamd5alifes7/POE_UtilityBundles/blob/master/demo/%E4%BB%8B%E9%9D%A2.png)
-
-
-## 功能簡介
-
-打開程式，按下確定後即開始使用。
-
-注意：
-
-F12 是所有功能的停止鍵。若按住數秒後仍卡死，請使用 Ctrl+Alt+Del 叫出工作管理員，再手動停止程式。
-
-預設各種參數皆為 2560x1080 視窗大小下的情況。若你的電腦視窗並非此設定，請使用 SHIFT+D 查詢各項座標位置，手動設定功能中的座標設定值。
-
-使用中可最小化但不可關閉應用程式畫面介面。
-
-[XButton2]前滑鼠側鍵:單下按鍵，使用藥劑列表中的藥劑。
-
-[Ctrl+L]開啟或關閉會啟用熱鍵的一鍵喝水模式。當開啟時，會將按下熱鍵的動作改為輸出列表中的按鍵。
-
-[XButton1]後滑鼠側鍵，會按住右鍵並定時施放列表中的技能。
-
-[MButton]滑鼠滾輪:按下後，開啟定時動作。包含持續攻擊、定時喝水及定時攻擊。預設為四秒一輪。
-
-[F3]快速輸入，預設為韓國世界頻168。
-
-[Ctrl+F3]快速輸入，預設為韓國交易頻615。
-
-[Ctrl+F4]快速輸入，預設為英文世界頻666。
-
-[F5]快速輸入，預設為進入藏身處。
-
-[F6]快速輸入，預設為世界頻5587。
-
-[Ctrl+F6]快速輸入，預設為無。
-
-[Ctrl+~]回到選角介面。
-
-[Shift+D]得到物品顏色及座標位置。
-
-[F2]在開啟背包的情況下，將背包裡的東西一一點選，例如丟進倉庫。
-
-[Shift+F2]迅速清點交易欄
-
-[F4]按下後，針對物品座標使用重鑄石及點金石，預設為通貨倉庫頁中的物品。
-
-[F9]針對右鍵已拾取的通貨例如鏈結石，連續點擊游標座標上的物品，F12為停止鍵。
-
-[F10]單下點擊開始快速移動倉庫左邊第一直欄到第五直欄的物件。預設是無資料夾的倉庫頁。
-
-[Ctrl+F10]單下點擊開始快速移動倉庫左邊第六直欄到第十直欄的物件。預設是無資料夾的倉庫頁。
-
-[F11]按住按鈕後移動滑鼠游標，來快速移動游標經過的物件。。
-
-[Ctrl+D]開啟/關閉自動引爆地雷
-
-[F10]RButton滑鼠右鍵，在開啟自動引爆地雷的情況下，使用右鍵技能及引爆地雷
-
-[Shift+V]在多個交易頻道中廣播，使用時輸入法需切成大寫英文。但在國際服的用處不大。
-
-[Ctrl+PageUp]一鍵查價。但 Awakened PoE Trade(國際服)或 rchin-poe-trade(hotcool) 更好用，已荒廢
-
-[Ctrl+Shift+F]根據滑鼠游標位置，設置自動喝水所需要的血量座標與顏色。
-
-[Ctrl+Shift+L]開啟/關閉自動喝水。偵測指定座標的顏色，若非指定色使用藥劑。但當光線不同時會有誤差。所以用處不大。
-
-[Ctrl+a]持續按壓時時自動撿拾，需搭配指定顏色的物品篩選器。但因拾取速度無法太快，用處不大。
-
-
-### 進階設定 
-
-進階的AHK使用者，可以在`functions_int.ahk`中做更細節的調整，也可以看情況增加自己喜歡的功能。
-
+[English guide](https://github.com/bamd5alifes7/PoE_UtilityBundles/blob/master/README-EN.md)
+
+# PoE_UtilityBundles
+
+首先感謝原作者 [heyfey 的 POE_Utility](https://github.com/heyfey/POE_Utility/)。  
+PoE_UtilityBundles 是基於原作延伸整理的 AutoHotkey 工具，主要整合 PoE 常用的快捷輸入、藥劑、搬倉、座標輔助與部分自動化操作。
+
+## 警告
+
+本專案中的許多功能明顯涉及遊戲自動化。  
+請自行判斷風險，並自行承擔使用後果。
+
+## 使用方式
+
+### 直接執行
+
+1. 到 Releases 下載 `PoE_UtilityBundles.exe`。
+2. 直接雙擊執行。
+
+如果 Windows Defender SmartScreen 擋下執行，請選擇「更多資訊」後再按「仍要執行」。
+
+### 從原始碼執行
+
+1. 安裝 [AutoHotkey v2](https://www.autohotkey.com/)。
+2. 下載專案原始碼。
+3. 進入 [`src`]，使用 Notepad++ 之類的文字編輯器閱讀程式碼，讀到你覺得可安心使用。(恐懼是來自於未知)
+4. 執行 [`PoE_UtilityBundles.ahk`]。
+
+## 關閉與儲存行為
+
+- 按 `Apply change`：立即套用 GUI 內容、重新註冊熱鍵並寫入 `settings.ini`。
+- 按右上角 `X`：
+  - 若沒有未儲存變更，直接關閉。
+  - 若有未儲存變更，會跳出確認視窗：
+    - `Yes`：儲存後關閉
+    - `No`：不儲存直接關閉
+    - `Cancel`：回到 GUI 繼續編輯
+- 也可以從系統匣的 AHK 圖示手動關閉程式。
+
+## 介面範例
+
+![介面](https://github.com/bamd5alifes7/PoE_UtilityBundles/blob/master/demo/%E4%BB%8B%E9%9D%A2.png)
+
+## 使用前建議
+
+- 預設座標以 `2560x1080` 視窗大小為基準。
+- 若你的視窗大小不同，請先用 `Shift + D` 查看顏色與座標，再到 GUI 中調整。
+- 建議先完成這幾組設定：
+  - 背包左上 / 右下
+  - 交易欄左上 / 右下
+  - 倉庫欄位範圍
+  - 常用通貨與目標物座標
+
+## 主要功能
+
+- `XButton2`：快速喝藥
+- `Ctrl+L`：切換一鍵喝藥模式
+- `XButton1`：按住右鍵並定時施放技能
+- `MButton`：定時循環動作
+- `F3` / `Ctrl+F3` / `Ctrl+F4` / `F5` / `F6` / `Ctrl+F6`：快速輸入
+- `Ctrl+\`：回到選角
+- `Shift+D`：查看游標位置與像素顏色
+- `F7`：將目前游標座標存到指定欄位
+- `F2`：快速搬背包
+- `Shift+F2`：快速掃描交易欄
+- `F4`：重鑄石 + 點金石
+- `F9`：對游標位置連點
+- `F10` / `Ctrl+F10` / `Shift+F10`：快速搬倉欄位
+- `F11`：滑鼠經過即快速搬移
+- `Ctrl+F7`：機會石洗傳奇
+- `Ctrl+F8`：開命運卡
+- `Ctrl+Shift+F8`：投入交易欄
+- `Ctrl+D`：切換自動引爆地雷
+- `Shift+V`：多頻道廣播
+- `Ctrl+Shift+F`：設定自動喝水偵測座標與顏色
+- `Ctrl+Shift+L`：切換自動喝水
+- `Ctrl+A`：自動撿拾
+
+## 已廢止或低優先功能
+
+- `Ctrl+PageUp`：舊版 SearchItem，已移除
+- 傳送卷軸相關舊功能：PoE 後續版本已有內建替代機制
+- 部分像素判色功能會受地圖光線、UI 狀態與解析度影響，請自行評估是否保留
+
+## 進階調整
+
+- 熱鍵、座標、廣播內容與多數設定可直接在 GUI 中調整。
+- 更細的行為可修改：
+  - [`src/functions_int.ahk`]
+  - [`src/gui.ahk`]
+  - [`src/rw_settings.ahk`]
