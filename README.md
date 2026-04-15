@@ -68,7 +68,7 @@ PoE_UtilityBundles 是一套以 AutoHotkey v2 撰寫、給 Path of Exile 使用�
 ### 快速輸入 / 移動
 
 - `F3` / `Ctrl+F3` / `Ctrl+F4` / `F5` / `F6` / `Ctrl+F6`：送出可自訂的聊天文字
-- `Ctrl+\``：快速送出 `/exit` 或其他自訂移動指令
+- `Ctrl+\`：快速送出 `/exit` 或其他自訂移動指令
 - `Shift+V`：依序切換多個交易頻道並廣播設定文字
 
 ### 座標 / 偵測

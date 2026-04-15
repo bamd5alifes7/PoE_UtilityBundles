@@ -77,7 +77,7 @@ The script requests administrator privileges automatically when launched.
 ### Quick Enter / Travel
 
 - `F3` / `Ctrl+F3` / `Ctrl+F4` / `F5` / `F6` / `Ctrl+F6`: send configurable chat text.
-- `Ctrl+```: quick `/exit` or any custom escape / travel text.
+- `Ctrl+`: quick `/exit` or any custom escape / travel text.
 - `Shift+V`: multi-channel trade broadcast using the configured message.
 
 ### Coordinates / Detection
