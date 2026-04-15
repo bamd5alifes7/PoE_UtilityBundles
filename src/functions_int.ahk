@@ -180,7 +180,49 @@ CheckMousePos(){
     return
 }
 
-SaveCoordinatesTool(){
+GetCoordinateSlots() {
+    return [
+        {id: "1", key: "deck", label: "Stacked Deck", guiLabel: "Stacked Deck", xVar: "DeckX", yVar: "DeckY"},
+        {id: "2", key: "chance", label: "Orb of Chance", guiLabel: "Orb of Chance", xVar: "ChanceX", yVar: "ChanceY"},
+        {id: "3", key: "scouring", label: "Orb of Scouring", guiLabel: "Orb of Scouring", xVar: "ScouringX", yVar: "ScouringY"},
+        {id: "4", key: "alchemy", label: "Orb of Alchemy", guiLabel: "Orb of Alchemy", xVar: "AlchemyX", yVar: "AlchemyY"},
+        {id: "5", key: "craftTarget", label: "Craft target item", guiLabel: "Craft Target", xVar: "ItemX", yVar: "ItemY"},
+        {id: "6", key: "cardTrade", label: "Card trade inventory", guiLabel: "Card Trade Inv", xVar: "cardTradeX", yVar: "cardTradeY"},
+        {id: "7", key: "bagTopLeft", label: "Bag top-left", guiLabel: "Bag top-left", xVar: "BagFirstX", yVar: "BagFirstY"},
+        {id: "8", key: "bagBottomRight", label: "Bag bottom-right", guiLabel: "Bag bottom-right", xVar: "BagLastX", yVar: "BagLastY"},
+        {id: "9", key: "tradeTopLeft", label: "Trade window top-left", guiLabel: "Trade window top-left", xVar: "tradeFirstX", yVar: "tradeFirstY"},
+        {id: "10", key: "tradeBottomRight", label: "Trade window bottom-right", guiLabel: "Trade window bottom-right", xVar: "tradeLastX", yVar: "tradeLastY"},
+        {id: "11", key: "stash1To5TopLeft", label: "Stash tabs 1-5 top-left", guiLabel: "Stash tabs 1-5 top-left", xVar: "stash1To5TopLeftX", yVar: "stash1To5TopLeftY"},
+        {id: "12", key: "stash1To5BottomRight", label: "Stash tabs 1-5 bottom-right", guiLabel: "Stash tabs 1-5 bottom-right", xVar: "stash1To5BottomRightX", yVar: "stash1To5BottomRightY"},
+        {id: "13", key: "stash6To10TopLeft", label: "Stash tabs 6-10 top-left", guiLabel: "Stash tabs 6-10 top-left", xVar: "stash6To10TopLeftX", yVar: "stash6To10TopLeftY"},
+        {id: "14", key: "stash6To10BottomRight", label: "Stash tabs 6-10 bottom-right", guiLabel: "Stash tabs 6-10 bottom-right", xVar: "stash6To10BottomRightX", yVar: "stash6To10BottomRightY"},
+        {id: "15", key: "stash11To12TopLeft", label: "Stash tabs 11-12 top-left", guiLabel: "Stash tabs 11-12 top-left", xVar: "stash11To12TopLeftX", yVar: "stash11To12TopLeftY"},
+        {id: "16", key: "stash11To12BottomRight", label: "Stash tabs 11-12 bottom-right", guiLabel: "Stash tabs 11-12 bottom-right", xVar: "stash11To12BottomRightX", yVar: "stash11To12BottomRightY"},
+        {id: "17", key: "autoFlaskProbe", label: "Auto flask life-color probe", guiLabel: "Auto Flask", xVar: "low_life_X", yVar: "low_life_Y"}
+    ]
+}
+
+FindCoordinateSlotById(option) {
+    for slot in GetCoordinateSlots() {
+        if slot.id = option
+            return slot
+    }
+    return ""
+}
+
+BuildCoordinateSlotListText() {
+    text := ""
+
+    for slot in GetCoordinateSlots() {
+        if text != ""
+            text .= "`r`n"
+        text .= slot.id " = " slot.label
+    }
+
+    return text
+}
+
+SaveCoordinateSlotValue(slotKey, mouseX, mouseY) {
     global DeckX, DeckY, ChanceX, ChanceY, cardTradeX, cardTradeY, ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
     global BagFirstX, BagFirstY, BagLastX, BagLastY
     global tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
@@ -189,6 +231,49 @@ SaveCoordinatesTool(){
     global stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY
     global low_life_X, low_life_Y
 
+    switch slotKey {
+        case "deck":
+            DeckX := mouseX, DeckY := mouseY
+        case "chance":
+            ChanceX := mouseX, ChanceY := mouseY
+        case "scouring":
+            ScouringX := mouseX, ScouringY := mouseY
+        case "alchemy":
+            AlchemyX := mouseX, AlchemyY := mouseY
+        case "craftTarget":
+            ItemX := mouseX, ItemY := mouseY
+        case "cardTrade":
+            cardTradeX := mouseX, cardTradeY := mouseY
+        case "bagTopLeft":
+            BagFirstX := mouseX, BagFirstY := mouseY
+        case "bagBottomRight":
+            BagLastX := mouseX, BagLastY := mouseY
+        case "tradeTopLeft":
+            tradeFirstX := mouseX, tradeFirstY := mouseY
+        case "tradeBottomRight":
+            tradeLastX := mouseX, tradeLastY := mouseY
+        case "stash1To5TopLeft":
+            stash1To5TopLeftX := mouseX, stash1To5TopLeftY := mouseY
+        case "stash1To5BottomRight":
+            stash1To5BottomRightX := mouseX, stash1To5BottomRightY := mouseY
+        case "stash6To10TopLeft":
+            stash6To10TopLeftX := mouseX, stash6To10TopLeftY := mouseY
+        case "stash6To10BottomRight":
+            stash6To10BottomRightX := mouseX, stash6To10BottomRightY := mouseY
+        case "stash11To12TopLeft":
+            stash11To12TopLeftX := mouseX, stash11To12TopLeftY := mouseY
+        case "stash11To12BottomRight":
+            stash11To12BottomRightX := mouseX, stash11To12BottomRightY := mouseY
+        case "autoFlaskProbe":
+            low_life_X := mouseX, low_life_Y := mouseY
+        default:
+            return false
+    }
+
+    return true
+}
+
+SaveCoordinatesTool(){
     if !WinActive("ahk_exe PathOfExile.exe") {
         MsgBox("Please switch to Path of Exile first, then place your cursor on the spot you want to save.")
         return
@@ -199,48 +284,19 @@ SaveCoordinatesTool(){
     if option = ""
         return
 
-    switch option {
-        case "1":
-            DeckX := mouseX, DeckY := mouseY
-        case "2":
-            ChanceX := mouseX, ChanceY := mouseY
-        case "3":
-            ScouringX := mouseX, ScouringY := mouseY
-        case "4":
-            AlchemyX := mouseX, AlchemyY := mouseY
-        case "5":
-            ItemX := mouseX, ItemY := mouseY
-        case "6":
-            cardTradeX := mouseX, cardTradeY := mouseY
-        case "7":
-            BagFirstX := mouseX, BagFirstY := mouseY
-        case "8":
-            BagLastX := mouseX, BagLastY := mouseY
-        case "9":
-            tradeFirstX := mouseX, tradeFirstY := mouseY
-        case "10":
-            tradeLastX := mouseX, tradeLastY := mouseY
-        case "11":
-            stash1To5TopLeftX := mouseX, stash1To5TopLeftY := mouseY
-        case "12":
-            stash1To5BottomRightX := mouseX, stash1To5BottomRightY := mouseY
-        case "13":
-            stash6To10TopLeftX := mouseX, stash6To10TopLeftY := mouseY
-        case "14":
-            stash6To10BottomRightX := mouseX, stash6To10BottomRightY := mouseY
-        case "15":
-            stash11To12TopLeftX := mouseX, stash11To12TopLeftY := mouseY
-        case "16":
-            stash11To12BottomRightX := mouseX, stash11To12BottomRightY := mouseY
-        case "17":
-            low_life_X := mouseX, low_life_Y := mouseY
-        default:
-            MsgBox("Unknown option. Please enter a number from 1 to 17.")
-            return
+    slot := FindCoordinateSlotById(option)
+    if !IsObject(slot) {
+        MsgBox("Unknown option. Please enter a number from 1 to " GetCoordinateSlots().Length ".")
+        return
+    }
+
+    if !SaveCoordinateSlotValue(slot.key, mouseX, mouseY) {
+        MsgBox("Unable to save that coordinate slot.")
+        return
     }
 
     SaveSettings()
-    MsgBox("Saved " GetCoordinateOptionLabel(option) " at x=" mouseX " y=" mouseY, , "T1")
+    MsgBox("Saved " slot.label " at x=" mouseX " y=" mouseY, , "T1")
 }
 
 PromptCoordinateSaveOption(mouseX, mouseY) {
@@ -248,25 +304,7 @@ PromptCoordinateSaveOption(mouseX, mouseY) {
     dialog := Gui("+AlwaysOnTop", "Save Cursor Position")
     dialog.SetFont("s9", "Segoe UI")
     dialog.Add("Text", "x16 y16 w700 h20", "Current cursor position: [" mouseX ", " mouseY "]")
-    dialog.Add("Edit", "x16 y44 w700 h290 ReadOnly -Wrap", 
-        "1 = Stacked Deck`r`n"
-        . "2 = Orb of Chance`r`n"
-        . "3 = Orb of Scouring`r`n"
-        . "4 = Orb of Alchemy`r`n"
-        . "5 = Craft target item`r`n"
-        . "6 = Card trade inventory`r`n"
-        . "7 = Bag top-left`r`n"
-        . "8 = Bag bottom-right`r`n"
-        . "9 = Trade window top-left`r`n"
-        . "10 = Trade window bottom-right`r`n"
-        . "11 = Stash tabs 1-5 top-left`r`n"
-        . "12 = Stash tabs 1-5 bottom-right`r`n"
-        . "13 = Stash tabs 6-10 top-left`r`n"
-        . "14 = Stash tabs 6-10 bottom-right`r`n"
-        . "15 = Stash tabs 11-12 top-left`r`n"
-        . "16 = Stash tabs 11-12 bottom-right`r`n"
-        . "17 = Auto flask life-color probe"
-    )
+    dialog.Add("Edit", "x16 y44 w700 h290 ReadOnly -Wrap", BuildCoordinateSlotListText())
     dialog.Add("Text", "x16 y350 w420 h20", "Enter the number for the position you want to save:")
     optionEdit := dialog.Add("Edit", "x16 y376 w96 h26 vselectedOption", "1")
     saveButton := dialog.Add("Button", "x500 y372 w100 h30 Default", "Save")
@@ -289,44 +327,8 @@ PromptCoordinateSaveOption(mouseX, mouseY) {
 }
 
 GetCoordinateOptionLabel(option) {
-    switch option {
-        case "1":
-            return "Stacked Deck"
-        case "2":
-            return "Orb of Chance"
-        case "3":
-            return "Orb of Scouring"
-        case "4":
-            return "Orb of Alchemy"
-        case "5":
-            return "Craft target item"
-        case "6":
-            return "Card trade inventory"
-        case "7":
-            return "Bag top-left"
-        case "8":
-            return "Bag bottom-right"
-        case "9":
-            return "Trade window top-left"
-        case "10":
-            return "Trade window bottom-right"
-        case "11":
-            return "Stash tabs 1-5 top-left"
-        case "12":
-            return "Stash tabs 1-5 bottom-right"
-        case "13":
-            return "Stash tabs 6-10 top-left"
-        case "14":
-            return "Stash tabs 6-10 bottom-right"
-        case "15":
-            return "Stash tabs 11-12 top-left"
-        case "16":
-            return "Stash tabs 11-12 bottom-right"
-        case "17":
-            return "Auto flask life-color probe"
-        default:
-            return "option " option
-    }
+    slot := FindCoordinateSlotById(option)
+    return IsObject(slot) ? slot.label : "option " option
 }
 
 LootBigRegion(){

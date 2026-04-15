@@ -1,3 +1,200 @@
+BuildCoordinateGuiValueMap() {
+    global DeckX, DeckY, ChanceX, ChanceY, cardTradeX, cardTradeY, ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    global BagFirstX, BagFirstY, BagLastX, BagLastY
+    global tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    global stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY
+    global stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY
+    global stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY
+    global low_life_X, low_life_Y
+
+    return Map(
+        "DeckX", DeckX,
+        "DeckY", DeckY,
+        "ChanceX", ChanceX,
+        "ChanceY", ChanceY,
+        "ScouringX", ScouringX,
+        "ScouringY", ScouringY,
+        "AlchemyX", AlchemyX,
+        "AlchemyY", AlchemyY,
+        "ItemX", ItemX,
+        "ItemY", ItemY,
+        "cardTradeX", cardTradeX,
+        "cardTradeY", cardTradeY,
+        "BagFirstX", BagFirstX,
+        "BagFirstY", BagFirstY,
+        "BagLastX", BagLastX,
+        "BagLastY", BagLastY,
+        "tradeFirstX", tradeFirstX,
+        "tradeFirstY", tradeFirstY,
+        "tradeLastX", tradeLastX,
+        "tradeLastY", tradeLastY,
+        "stash1To5TopLeftX", stash1To5TopLeftX,
+        "stash1To5TopLeftY", stash1To5TopLeftY,
+        "stash1To5BottomRightX", stash1To5BottomRightX,
+        "stash1To5BottomRightY", stash1To5BottomRightY,
+        "stash6To10TopLeftX", stash6To10TopLeftX,
+        "stash6To10TopLeftY", stash6To10TopLeftY,
+        "stash6To10BottomRightX", stash6To10BottomRightX,
+        "stash6To10BottomRightY", stash6To10BottomRightY,
+        "stash11To12TopLeftX", stash11To12TopLeftX,
+        "stash11To12TopLeftY", stash11To12TopLeftY,
+        "stash11To12BottomRightX", stash11To12BottomRightX,
+        "stash11To12BottomRightY", stash11To12BottomRightY,
+        "low_life_X", low_life_X,
+        "low_life_Y", low_life_Y
+    )
+}
+
+GetCoordinateSlotGuiValue(slot, axis) {
+    valueMap := BuildCoordinateGuiValueMap()
+    varName := axis = "x" ? slot.xVar : slot.yVar
+    return valueMap.Has(varName) ? valueMap[varName] : ""
+}
+
+AppendCoordinateTrackedFields(trackedFields) {
+    valueMap := BuildCoordinateGuiValueMap()
+
+    for slot in GetCoordinateSlots() {
+        trackedFields[slot.xVar] := valueMap[slot.xVar]
+        trackedFields[slot.yVar] := valueMap[slot.yVar]
+    }
+}
+
+SetCoordinateGuiValue(varName, value) {
+    global DeckX, DeckY, ChanceX, ChanceY, cardTradeX, cardTradeY, ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
+    global BagFirstX, BagFirstY, BagLastX, BagLastY
+    global tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
+    global stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY
+    global stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY
+    global stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY
+    global low_life_X, low_life_Y
+
+    switch varName {
+        case "DeckX":
+            DeckX := value
+        case "DeckY":
+            DeckY := value
+        case "ChanceX":
+            ChanceX := value
+        case "ChanceY":
+            ChanceY := value
+        case "ScouringX":
+            ScouringX := value
+        case "ScouringY":
+            ScouringY := value
+        case "AlchemyX":
+            AlchemyX := value
+        case "AlchemyY":
+            AlchemyY := value
+        case "ItemX":
+            ItemX := value
+        case "ItemY":
+            ItemY := value
+        case "cardTradeX":
+            cardTradeX := value
+        case "cardTradeY":
+            cardTradeY := value
+        case "BagFirstX":
+            BagFirstX := value
+        case "BagFirstY":
+            BagFirstY := value
+        case "BagLastX":
+            BagLastX := value
+        case "BagLastY":
+            BagLastY := value
+        case "tradeFirstX":
+            tradeFirstX := value
+        case "tradeFirstY":
+            tradeFirstY := value
+        case "tradeLastX":
+            tradeLastX := value
+        case "tradeLastY":
+            tradeLastY := value
+        case "stash1To5TopLeftX":
+            stash1To5TopLeftX := value
+        case "stash1To5TopLeftY":
+            stash1To5TopLeftY := value
+        case "stash1To5BottomRightX":
+            stash1To5BottomRightX := value
+        case "stash1To5BottomRightY":
+            stash1To5BottomRightY := value
+        case "stash6To10TopLeftX":
+            stash6To10TopLeftX := value
+        case "stash6To10TopLeftY":
+            stash6To10TopLeftY := value
+        case "stash6To10BottomRightX":
+            stash6To10BottomRightX := value
+        case "stash6To10BottomRightY":
+            stash6To10BottomRightY := value
+        case "stash11To12TopLeftX":
+            stash11To12TopLeftX := value
+        case "stash11To12TopLeftY":
+            stash11To12TopLeftY := value
+        case "stash11To12BottomRightX":
+            stash11To12BottomRightX := value
+        case "stash11To12BottomRightY":
+            stash11To12BottomRightY := value
+        case "low_life_X":
+            low_life_X := value
+        case "low_life_Y":
+            low_life_Y := value
+    }
+}
+
+ApplyCoordinateGuiValues(values) {
+    for slot in GetCoordinateSlots() {
+        SetCoordinateGuiValue(slot.xVar, values.%slot.xVar%)
+        SetCoordinateGuiValue(slot.yVar, values.%slot.yVar%)
+    }
+}
+
+AddCoordinateSlotXYControls(guiObj, baseX, y, slotId) {
+    slot := FindCoordinateSlotById(slotId)
+    if !IsObject(slot)
+        return
+
+    guiObj.Add("Text", Format("x{} y{} w110 h18", baseX, y), slot.guiLabel)
+    guiObj.Add("Text", Format("x{} y{} w14 h18", baseX + 114, y), "X")
+    guiObj.Add("Edit", Format("x{} y{} w72 h22 v{}", baseX + 130, y - 4, slot.xVar), GetCoordinateSlotGuiValue(slot, "x"))
+    guiObj.Add("Text", Format("x{} y{} w14 h18", baseX + 210, y), "Y")
+    guiObj.Add("Edit", Format("x{} y{} w72 h22 v{}", baseX + 226, y - 4, slot.yVar), GetCoordinateSlotGuiValue(slot, "y"))
+}
+
+AddActionTargetRows(guiObj) {
+    rows := [
+        ["1", "6"],
+        ["2", "5"],
+        ["3", "17"],
+        ["4", ""]
+    ]
+
+    y := 486
+    for row in rows {
+        AddCoordinateSlotXYControls(guiObj, 40, y, row[1])
+        if row[2] != ""
+            AddCoordinateSlotXYControls(guiObj, 430, y, row[2])
+        y += 28
+    }
+}
+
+AddCornerCoordinateControls(guiObj, baseX, y, slotId) {
+    slot := FindCoordinateSlotById(slotId)
+    if !IsObject(slot)
+        return
+
+    labelText := InStr(slot.label, "bottom-right") ? "Bottom Right" : "Top Left"
+    guiObj.Add("Text", Format("x{} y{} w120 h18", baseX, y), labelText " X")
+    guiObj.Add("Edit", Format("x{} y{} w90 h22 v{}", baseX + 124, y - 4, slot.xVar), GetCoordinateSlotGuiValue(slot, "x"))
+    guiObj.Add("Text", Format("x{} y{} w120 h18", baseX + 230, y), labelText " Y")
+    guiObj.Add("Edit", Format("x{} y{} w90 h22 v{}", baseX + 354, y - 4, slot.yVar), GetCoordinateSlotGuiValue(slot, "y"))
+}
+
+AddStashRangeControls(guiObj, y, title, topLeftId, bottomRightId) {
+    guiObj.Add("Text", Format("x32 y{} w140 h18", y), title)
+    AddCornerCoordinateControls(guiObj, 48, y + 24, topLeftId)
+    AddCornerCoordinateControls(guiObj, 48, y + 56, bottomRightId)
+}
+
 RunGUI(){
     global mainGui
     global hotkeyQuickFlaskPrimary, hotkeyToggleQuickFlask, hotkeyAutoattack, hotkeyAutoTimeFlask
@@ -10,13 +207,8 @@ RunGUI(){
     global quickFlasksHotkey0, quickFlasksHotkey1, quick_flask_list, quick_flask_list_1
     global AutoTime_attack_list, AutoTime_flask_list, keep_attack_list, AutoInterval
     global quickEnterText0, quickEnterText1, quickEnterText2, quickEnterText3, quickEnterText4, quickEnterText5, quickEnterText7
-    global BagFirstX, BagFirstY, BagLastX, BagLastY, DeckX, DeckY, ChanceX, ChanceY, cardTradeX, cardTradeY, tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
-    global ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
-    global stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY
-    global stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY
-    global stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY
     global mine_laying_time, stashMoveDelayMin, stashMoveDelayMax, Announce, low_life_flask_list, lootColor, loot_dalay
-    global low_life_X, low_life_Y, life_color
+    global life_color
 
     mainGui := Gui("+Resize +MinSize920x860", "POE_Utilitybundles")
     mainGui.MarginX := 20
@@ -142,62 +334,13 @@ RunGUI(){
     mainGui.Add("Text", "x28 y156 w740 h20", "Save cursor position opens a picker for bag, trade, crafting, stash, and auto-flask positions.")
     mainGui.Add("Text", "x28 y178 w740 h18", "Tip: 'Save cursor position' is usually the fastest way to set these values.")
     mainGui.Add("GroupBox", "x16 y202 w780 h132", "Bag Bounds")
-    mainGui.Add("Text", "x40 y226 w72 h18", "Top Left X")
-    mainGui.Add("Edit", "x134 y222 w100 h22 vBagFirstX", BagFirstX)
-    mainGui.Add("Text", "x252 y226 w72 h18", "Top Left Y")
-    mainGui.Add("Edit", "x346 y222 w100 h22 vBagFirstY", BagFirstY)
-    mainGui.Add("Text", "x40 y254 w90 h18", "Bottom Right X")
-    mainGui.Add("Edit", "x134 y250 w100 h22 vBagLastX", BagLastX)
-    mainGui.Add("Text", "x252 y254 w100 h18", "Bottom Right Y")
-    mainGui.Add("Edit", "x346 y250 w100 h22 vBagLastY", BagLastY)
+    AddCornerCoordinateControls(mainGui, 40, 226, "7")
+    AddCornerCoordinateControls(mainGui, 40, 258, "8")
     mainGui.Add("GroupBox", "x16 y340 w780 h120", "Trade Window Bounds")
-    mainGui.Add("Text", "x40 y376 w90 h18", "Top Left X")
-    mainGui.Add("Edit", "x134 y372 w100 h22 vtradeFirstX", tradeFirstX)
-    mainGui.Add("Text", "x252 y376 w90 h18", "Top Left Y")
-    mainGui.Add("Edit", "x346 y372 w100 h22 vtradeFirstY", tradeFirstY)
-    mainGui.Add("Text", "x40 y408 w100 h18", "Bottom Right X")
-    mainGui.Add("Edit", "x134 y404 w100 h22 vtradeLastX", tradeLastX)
-    mainGui.Add("Text", "x252 y408 w100 h18", "Bottom Right Y")
-    mainGui.Add("Edit", "x346 y404 w100 h22 vtradeLastY", tradeLastY)
+    AddCornerCoordinateControls(mainGui, 40, 376, "9")
+    AddCornerCoordinateControls(mainGui, 40, 408, "10")
     mainGui.Add("GroupBox", "x16 y458 w780 h252", "Action Targets")
-    mainGui.Add("Text", "x40 y486 w110 h18", "Stacked Deck")
-    mainGui.Add("Text", "x154 y486 w14 h18", "X")
-    mainGui.Add("Edit", "x170 y482 w72 h22 vDeckX", DeckX)
-    mainGui.Add("Text", "x250 y486 w14 h18", "Y")
-    mainGui.Add("Edit", "x266 y482 w72 h22 vDeckY", DeckY)
-    mainGui.Add("Text", "x430 y486 w110 h18", "Card Trade Inv")
-    mainGui.Add("Text", "x544 y486 w14 h18", "X")
-    mainGui.Add("Edit", "x560 y482 w72 h22 vcardTradeX", cardTradeX)
-    mainGui.Add("Text", "x640 y486 w14 h18", "Y")
-    mainGui.Add("Edit", "x656 y482 w72 h22 vcardTradeY", cardTradeY)
-
-    mainGui.Add("Text", "x40 y514 w110 h18", "Orb of Chance")
-    mainGui.Add("Text", "x154 y514 w14 h18", "X")
-    mainGui.Add("Edit", "x170 y510 w72 h22 vChanceX", ChanceX)
-    mainGui.Add("Text", "x250 y514 w14 h18", "Y")
-    mainGui.Add("Edit", "x266 y510 w72 h22 vChanceY", ChanceY)
-    mainGui.Add("Text", "x430 y514 w110 h18", "Craft Target")
-    mainGui.Add("Text", "x544 y514 w14 h18", "X")
-    mainGui.Add("Edit", "x560 y510 w72 h22 vItemX", ItemX)
-    mainGui.Add("Text", "x640 y514 w14 h18", "Y")
-    mainGui.Add("Edit", "x656 y510 w72 h22 vItemY", ItemY)
-
-    mainGui.Add("Text", "x40 y542 w110 h18", "Orb of Scouring")
-    mainGui.Add("Text", "x154 y542 w14 h18", "X")
-    mainGui.Add("Edit", "x170 y538 w72 h22 vScouringX", ScouringX)
-    mainGui.Add("Text", "x250 y542 w14 h18", "Y")
-    mainGui.Add("Edit", "x266 y538 w72 h22 vScouringY", ScouringY)
-    mainGui.Add("Text", "x430 y542 w110 h18", "Auto Flask")
-    mainGui.Add("Text", "x544 y542 w14 h18", "X")
-    mainGui.Add("Edit", "x560 y538 w72 h22 vlow_life_X", low_life_X)
-    mainGui.Add("Text", "x640 y542 w14 h18", "Y")
-    mainGui.Add("Edit", "x656 y538 w72 h22 vlow_life_Y", low_life_Y)
-
-    mainGui.Add("Text", "x40 y570 w110 h18", "Orb of Alchemy")
-    mainGui.Add("Text", "x154 y570 w14 h18", "X")
-    mainGui.Add("Edit", "x170 y566 w72 h22 vAlchemyX", AlchemyX)
-    mainGui.Add("Text", "x250 y570 w14 h18", "Y")
-    mainGui.Add("Edit", "x266 y566 w72 h22 vAlchemyY", AlchemyY)
+    AddActionTargetRows(mainGui)
     mainGui.Add("Text", "x430 y570 w110 h18", "Life Color")
     mainGui.Add("Edit", "x560 y566 w120 h22 vlife_color", life_color)
     mainGui.Add("Text", "x430 y600 w320 h36", "Auto flask probe can also be reset from the Set auto flask hotkey.")
@@ -206,33 +349,9 @@ RunGUI(){
     mainGui.Add("GroupBox", "x16 y120 w780 h360", "Stash Ranges")
     mainGui.Add("Text", "x32 y138 w740 h18", "These ranges control the stash sweep hotkeys from Home.")
     mainGui.Add("Text", "x32 y156 w740 h18", "Tip: 'Save cursor position' is usually the fastest way to capture stash corners.")
-    mainGui.Add("Text", "x32 y178 w140 h18", "Stash 1-5")
-    mainGui.Add("Text", "x48 y202 w120 h18", "Top Left X")
-    mainGui.Add("Edit", "x172 y198 w90 h22 vstash1To5TopLeftX", stash1To5TopLeftX)
-    mainGui.Add("Text", "x278 y202 w120 h18", "Top Left Y")
-    mainGui.Add("Edit", "x402 y198 w90 h22 vstash1To5TopLeftY", stash1To5TopLeftY)
-    mainGui.Add("Text", "x48 y234 w120 h18", "Bottom Right X")
-    mainGui.Add("Edit", "x172 y230 w90 h22 vstash1To5BottomRightX", stash1To5BottomRightX)
-    mainGui.Add("Text", "x278 y234 w120 h18", "Bottom Right Y")
-    mainGui.Add("Edit", "x402 y230 w90 h22 vstash1To5BottomRightY", stash1To5BottomRightY)
-    mainGui.Add("Text", "x32 y274 w140 h18", "Stash 6-10")
-    mainGui.Add("Text", "x48 y298 w120 h18", "Top Left X")
-    mainGui.Add("Edit", "x172 y294 w90 h22 vstash6To10TopLeftX", stash6To10TopLeftX)
-    mainGui.Add("Text", "x278 y298 w120 h18", "Top Left Y")
-    mainGui.Add("Edit", "x402 y294 w90 h22 vstash6To10TopLeftY", stash6To10TopLeftY)
-    mainGui.Add("Text", "x48 y330 w120 h18", "Bottom Right X")
-    mainGui.Add("Edit", "x172 y326 w90 h22 vstash6To10BottomRightX", stash6To10BottomRightX)
-    mainGui.Add("Text", "x278 y330 w120 h18", "Bottom Right Y")
-    mainGui.Add("Edit", "x402 y326 w90 h22 vstash6To10BottomRightY", stash6To10BottomRightY)
-    mainGui.Add("Text", "x32 y370 w140 h18", "Stash 11-12")
-    mainGui.Add("Text", "x48 y394 w120 h18", "Top Left X")
-    mainGui.Add("Edit", "x172 y390 w90 h22 vstash11To12TopLeftX", stash11To12TopLeftX)
-    mainGui.Add("Text", "x278 y394 w120 h18", "Top Left Y")
-    mainGui.Add("Edit", "x402 y390 w90 h22 vstash11To12TopLeftY", stash11To12TopLeftY)
-    mainGui.Add("Text", "x48 y426 w120 h18", "Bottom Right X")
-    mainGui.Add("Edit", "x172 y422 w90 h22 vstash11To12BottomRightX", stash11To12BottomRightX)
-    mainGui.Add("Text", "x278 y426 w120 h18", "Bottom Right Y")
-    mainGui.Add("Edit", "x402 y422 w90 h22 vstash11To12BottomRightY", stash11To12BottomRightY)
+    AddStashRangeControls(mainGui, 178, "Stash 1-5", "11", "12")
+    AddStashRangeControls(mainGui, 274, "Stash 6-10", "13", "14")
+    AddStashRangeControls(mainGui, 370, "Stash 11-12", "15", "16")
     mainGui.Add("GroupBox", "x516 y186 w260 h170", "Stash Move Delay")
     mainGui.Add("Text", "x536 y214 w220 h34", "These delays are used by stash 1-5, 6-10, and 11-12 move actions.")
     mainGui.Add("Text", "x536 y266 w110 h18", "Min delay (ms)")
@@ -369,41 +488,7 @@ HasUnsavedChanges(values){
         "quickEnterText4", quickEnterText4,
         "quickEnterText5", quickEnterText5,
         "quickEnterText7", quickEnterText7,
-        "BagFirstX", BagFirstX,
-        "BagFirstY", BagFirstY,
-        "BagLastX", BagLastX,
-        "BagLastY", BagLastY,
-        "DeckX", DeckX,
-        "DeckY", DeckY,
-        "ChanceX", ChanceX,
-        "ChanceY", ChanceY,
-        "cardTradeX", cardTradeX,
-        "cardTradeY", cardTradeY,
-        "tradeFirstX", tradeFirstX,
-        "tradeFirstY", tradeFirstY,
-        "tradeLastX", tradeLastX,
-        "tradeLastY", tradeLastY,
-        "ScouringX", ScouringX,
-        "ScouringY", ScouringY,
-        "ItemX", ItemX,
-        "ItemY", ItemY,
-        "AlchemyX", AlchemyX,
-        "AlchemyY", AlchemyY,
-        "low_life_X", low_life_X,
-        "low_life_Y", low_life_Y,
         "life_color", life_color,
-        "stash1To5TopLeftX", stash1To5TopLeftX,
-        "stash1To5TopLeftY", stash1To5TopLeftY,
-        "stash1To5BottomRightX", stash1To5BottomRightX,
-        "stash1To5BottomRightY", stash1To5BottomRightY,
-        "stash6To10TopLeftX", stash6To10TopLeftX,
-        "stash6To10TopLeftY", stash6To10TopLeftY,
-        "stash6To10BottomRightX", stash6To10BottomRightX,
-        "stash6To10BottomRightY", stash6To10BottomRightY,
-        "stash11To12TopLeftX", stash11To12TopLeftX,
-        "stash11To12TopLeftY", stash11To12TopLeftY,
-        "stash11To12BottomRightX", stash11To12BottomRightX,
-        "stash11To12BottomRightY", stash11To12BottomRightY,
         "mine_laying_time", mine_laying_time,
         "stashMoveDelayMin", stashMoveDelayMin,
         "stashMoveDelayMax", stashMoveDelayMax,
@@ -412,6 +497,7 @@ HasUnsavedChanges(values){
         "lootColor", lootColor,
         "loot_dalay", loot_dalay
     )
+    AppendCoordinateTrackedFields(trackedFields)
 
     for fieldName, currentValue in trackedFields {
         guiValue := values.%fieldName%
@@ -433,13 +519,8 @@ ApplyGuiValues(values){
     global quickFlasksHotkey0, quickFlasksHotkey1, quick_flask_list, quick_flask_list_1
     global AutoTime_attack_list, AutoTime_flask_list, keep_attack_list, AutoInterval
     global quickEnterText0, quickEnterText1, quickEnterText2, quickEnterText3, quickEnterText4, quickEnterText5, quickEnterText7
-    global BagFirstX, BagFirstY, BagLastX, BagLastY, DeckX, DeckY, ChanceX, ChanceY, cardTradeX, cardTradeY, tradeFirstX, tradeFirstY, tradeLastX, tradeLastY
-    global ScouringX, ScouringY, ItemX, ItemY, AlchemyX, AlchemyY
-    global stash1To5TopLeftX, stash1To5TopLeftY, stash1To5BottomRightX, stash1To5BottomRightY
-    global stash6To10TopLeftX, stash6To10TopLeftY, stash6To10BottomRightX, stash6To10BottomRightY
-    global stash11To12TopLeftX, stash11To12TopLeftY, stash11To12BottomRightX, stash11To12BottomRightY
     global mine_laying_time, stashMoveDelayMin, stashMoveDelayMax, Announce, low_life_flask_list, lootColor, loot_dalay
-    global low_life_X, low_life_Y, life_color
+    global life_color
 
     hotkeyQuickFlaskPrimary := values.hotkeyQuickFlaskPrimary
     hotkeyToggleQuickFlask := values.hotkeyToggleQuickFlask
@@ -486,41 +567,8 @@ ApplyGuiValues(values){
     quickEnterText4 := values.quickEnterText4
     quickEnterText5 := values.quickEnterText5
     quickEnterText7 := values.quickEnterText7
-    BagFirstX := values.BagFirstX
-    BagFirstY := values.BagFirstY
-    BagLastX := values.BagLastX
-    BagLastY := values.BagLastY
-    DeckX := values.DeckX
-    DeckY := values.DeckY
-    ChanceX := values.ChanceX
-    ChanceY := values.ChanceY
-    cardTradeX := values.cardTradeX
-    cardTradeY := values.cardTradeY
-    tradeFirstX := values.tradeFirstX
-    tradeFirstY := values.tradeFirstY
-    tradeLastX := values.tradeLastX
-    tradeLastY := values.tradeLastY
-    ScouringX := values.ScouringX
-    ScouringY := values.ScouringY
-    ItemX := values.ItemX
-    ItemY := values.ItemY
-    AlchemyX := values.AlchemyX
-    AlchemyY := values.AlchemyY
-    low_life_X := values.low_life_X
-    low_life_Y := values.low_life_Y
+    ApplyCoordinateGuiValues(values)
     life_color := values.life_color
-    stash1To5TopLeftX := values.stash1To5TopLeftX
-    stash1To5TopLeftY := values.stash1To5TopLeftY
-    stash1To5BottomRightX := values.stash1To5BottomRightX
-    stash1To5BottomRightY := values.stash1To5BottomRightY
-    stash6To10TopLeftX := values.stash6To10TopLeftX
-    stash6To10TopLeftY := values.stash6To10TopLeftY
-    stash6To10BottomRightX := values.stash6To10BottomRightX
-    stash6To10BottomRightY := values.stash6To10BottomRightY
-    stash11To12TopLeftX := values.stash11To12TopLeftX
-    stash11To12TopLeftY := values.stash11To12TopLeftY
-    stash11To12BottomRightX := values.stash11To12BottomRightX
-    stash11To12BottomRightY := values.stash11To12BottomRightY
     mine_laying_time := values.mine_laying_time
     stashMoveDelayMin := values.stashMoveDelayMin
     stashMoveDelayMax := values.stashMoveDelayMax
